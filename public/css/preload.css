@@ -1,0 +1,38 @@
+/* Mengatur body untuk meletakkan preloader di tengah halaman */
+        .body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #111827; /* Latar belakang gelap agar preloader terlihat jelas */
+        }
+
+        /* --- Gaya Preloader Modern --- */
+        .loader {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; /* Membuat bentuk menjadi lingkaran sempurna */
+            
+            /* Triknya ada di sini:
+              - Border utama dibuat transparan.
+              - Hanya satu sisi border (border-top) yang diberi warna.
+            */
+            border: 5px solid transparent;
+            border-top-color: #3b82f6; /* Warna biru, bisa diganti sesuai tema Anda */
+            
+            /* Menerapkan animasi berputar */
+            animation: spin 1s linear infinite;
+        }
+
+        /* Definisi animasi 'spin' */
+        @keyframes spin {
+            /* Animasi dimulai dari 0 derajat */
+            from {
+                transform: rotate(0deg);
+            }
+            /* Animasi berakhir dengan putaran penuh 360 derajat */
+            to {
+                transform: rotate(360deg);
+            }
+        }
