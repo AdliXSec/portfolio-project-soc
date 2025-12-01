@@ -11,7 +11,7 @@
                         $sidebar = \App\Models\Home::first();
                     @endphp
                     <div class="count-indicator">
-                        <img class="img-xs rounded-circle " src="{{ asset('img/home/'.$sidebar->foto) }}" alt="">
+                        <img loading="lazy" class="img-xs rounded-circle " src="{{ asset('img/home/'.$sidebar->foto) }}" alt="">
                         <span class="count bg-success"></span>
                     </div>
                     <div class="profile-name">

@@ -54,7 +54,7 @@
                         <div class="relative h-48 overflow-hidden">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent z-10 opacity-60"></div>
 
-                            <img src="{{ asset('img/project/'.$imgSrc) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="{{ $project->judul }}">
+                            <img loading="lazy" src="{{ asset('img/project/'.$imgSrc) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="{{ $project->judul }}">
 
                             <div class="absolute top-4 right-4 z-20">
                                 <span class="px-3 py-1 text-xs font-semibold rounded-full bg-{{ $color }}-500/20 text-{{ $color }}-300 border border-{{ $color }}-500/30 backdrop-blur-md">

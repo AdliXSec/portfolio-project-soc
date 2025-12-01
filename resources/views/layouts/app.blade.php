@@ -222,7 +222,7 @@
         </button>
 
         <div class="relative max-w-7xl max-h-[90vh] p-4">
-            <img id="modalImage" src="" alt="Full Preview" class="max-w-full max-h-[85vh] rounded-lg shadow-2xl object-contain transform scale-95 transition-transform duration-300">
+            <img loading="lazy" id="modalImage" src="" alt="Full Preview" class="max-w-full max-h-[85vh] rounded-lg shadow-2xl object-contain transform scale-95 transition-transform duration-300">
             <p id="modalCaption" class="text-center text-white/80 mt-4 text-sm font-light"></p>
         </div>
     </div>

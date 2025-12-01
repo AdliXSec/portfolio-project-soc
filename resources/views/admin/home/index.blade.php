@@ -30,7 +30,7 @@
                     <h4 class="card-title mb-4">Profile Picture</h4>
 
                     <div class="position-relative d-inline-block mb-4">
-                        <img src="{{ $home->foto ? asset('img/home/'.$home->foto) : 'https://via.placeholder.com/150' }}"
+                        <img loading="lazy" src="{{ $home->foto ? asset('img/home/'.$home->foto) : 'https://via.placeholder.com/150' }}"
                              alt="profile"
                              id="imgPreview"
                              class="img-lg rounded-circle border border-primary p-1"

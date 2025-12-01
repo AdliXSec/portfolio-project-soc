@@ -32,7 +32,7 @@
                 <div class="relative group rounded-2xl overflow-hidden border border-white/10 bg-[#111] p-2 shadow-2xl">
                     <div class="relative rounded-xl overflow-hidden">
                         <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-500 z-10"></div>
-                        <img src="{{ asset('img/cert/'.$certificate->foto) }}" alt="{{ $certificate->judul }}" class="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-500">
+                        <img loading="lazy" src="{{ asset('img/cert/'.$certificate->foto) }}" alt="{{ $certificate->judul }}" class="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-500">
                     </div>
                     <div class="absolute bottom-6 right-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <button class="w-12 h-12 rounded-full bg-black/50 backdrop-blur-md text-white border border-white/20 flex items-center justify-center hover:bg-{{ $color }}-600 hover:border-{{ $color }}-600 transition-colors">

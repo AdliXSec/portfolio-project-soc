@@ -38,7 +38,7 @@
                         };
                     @endphp
 
-                    <img src="{{ $imgSrc }}" alt="{{ $project->judul }}" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img loading="lazy" src="{{ $imgSrc }}" alt="{{ $project->judul }}" style="width: 100%; height: 100%; object-fit: cover;">
 
                     <div class="badge badge-{{ $badgeColor }} position-absolute" style="top: 15px; right: 15px; opacity: 0.9;">
                         {{ $project->type }}

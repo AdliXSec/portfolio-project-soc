@@ -17,7 +17,7 @@
     @endphp
 
     <div class="w-full h-[50vh] relative mt-16">
-        <img src="{{ asset('img/project/'.$imgSrc) }}" class="w-full h-full object-cover" alt="{{ $project->judul }}">
+        <img loading="lazy" src="{{ asset('img/project/'.$imgSrc) }}" class="w-full h-full object-cover" alt="{{ $project->judul }}">
         <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent"></div>
 
         <div class="absolute bottom-0 left-0 w-full p-6 md:p-12 container mx-auto">
@@ -66,7 +66,7 @@
                                 <div class="relative group cursor-pointer overflow-hidden rounded-xl border border-white/10"
                                     onclick="openModal('{{ asset('img/project/'.$img) }}', '{{ $project->judul }}')">
 
-                                    <img src="{{ asset('img/project/'.$img) }}"
+                                    <img loading="lazy" src="{{ asset('img/project/'.$img) }}"
                                         class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                                         alt="Gallery Image">
 

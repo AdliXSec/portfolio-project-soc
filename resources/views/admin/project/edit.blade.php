@@ -98,7 +98,7 @@
                         @if($project->galery)
                             <div class="mt-2 d-flex gap-2">
                                 @foreach($project->galery as $img)
-                                    <img src="{{ asset('img/project/'.$img) }}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;">
+                                    <img loading="lazy" src="{{ asset('img/project/'.$img) }}" style="width: 80px; height: 60px; object-fit: cover; border-radius: 5px;">
                                 @endforeach
                             </div>
                         @endif

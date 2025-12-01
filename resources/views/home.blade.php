@@ -63,7 +63,7 @@
             <div class="order-1 md:order-2 flex justify-center relative" data-aos="fade-left" data-aos-duration="1200">
                 <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 group">
                     <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
-                    <img src="{{ $profile && $profile->foto ? asset('img/home/'.$profile->foto) : asset('img/adli2.png') }}"
+                    <img  loading="lazy" src="{{ $profile && $profile->foto ? asset('img/home/'.$profile->foto) : asset('img/adli2.png') }}"
                          alt="{{ optional($profile)->nama ?? 'Profile' }}"
                          class="relative w-full h-full object-cover rounded-full border-2 border-white/10 shadow-2xl z-10 grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-[1.02]">
                 </div>
@@ -89,7 +89,7 @@
                 <div class="md:col-span-5 lg:col-span-4 relative">
                     <div class="rounded-2xl overflow-hidden shadow-2xl border border-white/10 relative group">
                         <div class="absolute inset-0 bg-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
-                        <img src="{{ $about && $about->foto ? asset('img/about/'.$about->foto) : asset('img/adli.jpg') }}" alt="About Image" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-110">
+                        <img  loading="lazy" src="{{ $about && $about->foto ? asset('img/about/'.$about->foto) : asset('img/adli.jpg') }}" alt="About Image" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-110">
                     </div>
                     <div class="absolute -bottom-6 -right-6 bg-[#111] border border-white/10 p-4 rounded-xl shadow-xl hidden md:block">
                         <p class="text-3xl font-bold text-blue-500">{{ optional($about)->total_project ?? '100' }}+</p>
@@ -143,7 +143,7 @@
                     data-aos="fade-up" data-aos-delay="{{ $index * 50 }}">
 
                     <div class="w-16 h-16 flex items-center justify-center bg-white/5 rounded-full group-hover:scale-110 transition-transform duration-300">
-                        <img src="{{ asset('img/code/'.$tech->foto) }}" class="w-10 h-10 object-contain" alt="{{ $tech->judul }}">
+                        <img  loading="lazy" src="{{ asset('img/code/'.$tech->foto) }}" class="w-10 h-10 object-contain" alt="{{ $tech->judul }}">
                     </div>
                     <h3 class="text-gray-300 font-medium group-hover:text-white text-sm">{{ $tech->judul }}</h3>
                 </div>
@@ -232,7 +232,7 @@
                             data-aos="fade-up" data-aos-delay="100" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
 
                             <div class="md:w-1/2 {{ $index % 2 != 0 ? 'order-1 md:order-2' : '' }}">
-                                <img src="{{ asset('img/project/'.$imgSrc) }}" class="w-full h-64 md:h-80 rounded-xl shadow-lg object-cover" alt="{{ $project->judul }}">
+                                <img  loading="lazy" src="{{ asset('img/project/'.$imgSrc) }}" class="w-full h-64 md:h-80 rounded-xl shadow-lg object-cover" alt="{{ $project->judul }}">
                             </div>
 
                             <div class="md:w-1/2 flex flex-col justify-center space-y-4 {{ $index % 2 != 0 ? 'order-2 md:order-1 text-left md:text-right' : '' }}">
@@ -265,7 +265,7 @@
                             data-aos="{{ $index % 2 == 0 ? 'fade-right' : 'fade-left' }}" data-aos-delay="200" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
 
                             <div class="w-full">
-                                <img src="{{ asset('img/project/'.$imgSrc) }}" class="w-full h-48 rounded-xl shadow-lg object-cover" alt="{{ $project->judul }}">
+                                <img  loading="lazy" src="{{ asset('img/project/'.$imgSrc) }}" class="w-full h-48 rounded-xl shadow-lg object-cover" alt="{{ $project->judul }}">
                             </div>
 
                             <div class="flex flex-col justify-between flex-grow space-y-3">
@@ -307,7 +307,7 @@
         </div>
     </section>
 
-    <section class="bg-[#050505] py-20 relative overflow-hidden" id="achievements">
+    {{-- <section class="bg-[#050505] py-20 relative overflow-hidden" id="achievements">
         <div class="container mx-auto p-6 relative z-10">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Certifications & <span class="text-blue-500">Awards</span></h2>
@@ -350,7 +350,73 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
+    <section class="bg-[#050505] py-20 relative overflow-hidden" id="achievements">
+    <div class="container mx-auto p-6 relative z-10">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Certifications & <span class="text-blue-500">Awards</span></h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach($certificates as $index => $cert)
+            <div class="glass-card rounded-2xl relative group hover:-translate-y-2 transition-transform duration-300 h-full flex flex-col overflow-hidden"
+                 data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+
+                <div class="relative h-48 w-full overflow-hidden">
+                    <div class="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full">
+                        <span class="text-xs font-mono text-blue-400 font-bold">
+                            {{ \Carbon\Carbon::parse($cert->tanggal)->year }}
+                        </span>
+                    </div>
+
+                    <img  loading="lazy" src="{{ asset('img/cert/' . ($cert->foto ?? 'default.jpg')) }}"
+                         alt="{{ $cert->judul }}"
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-60"></div>
+                </div>
+
+                <div class="p-6 flex flex-col flex-grow relative">
+                    <div class="absolute -top-6 left-6 w-12 h-12 rounded-xl flex items-center justify-center text-xl bg-[#0a0a0a] border border-white/10 text-blue-400 shadow-lg">
+                        @if ($cert->type == 'Award')
+                            <i class="fas fa-award"></i>
+                        @elseif ($cert->type == 'Certificate')
+                            <i class="fas fa-trophy"></i>
+                        @elseif ($cert->type == 'Competency')
+                            <i class="fas fa-certificate"></i>
+                        @endif
+                    </div>
+
+                    <div class="mt-4 flex-grow">
+                        <h3 class="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors line-clamp-2">
+                            {{ $cert->judul }}
+                        </h3>
+                        <p class="text-sm text-blue-500 font-medium mb-3">{{ $cert->issued }}</p>
+                        <p class="text-sm text-gray-400 leading-relaxed line-clamp-3">
+                            {{ Str::limit($cert->deskripsi, 80) }}
+                        </p>
+                    </div>
+
+                    <div class="pt-6 mt-auto border-t border-white/5">
+                        <a href="{{ route('certificate.show', $cert->slug) }}" class="inline-flex items-center text-sm text-gray-400 hover:text-white transition-colors group/link">
+                            View Credential
+                            <i class="fas fa-arrow-right ml-2 transition-transform group-hover/link:translate-x-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <div class="mt-16 text-center" data-aos="zoom-in">
+            <div class="inline-block p-[1px] rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+                <a href="{{ asset('storage/'. $profile->cv .'') }}" target="_blank" class="block px-8 py-3 rounded-full bg-[#0a0a0a] text-white font-semibold hover:bg-transparent transition-all duration-300 flex items-center gap-2">
+                    <i class="fas fa-download"></i> Download Full Resume
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 
     <section class="bg-[#0a0a0a] pb-20 pt-20" id="contact">
         <div class="container mx-auto px-4 max-w-4xl">
