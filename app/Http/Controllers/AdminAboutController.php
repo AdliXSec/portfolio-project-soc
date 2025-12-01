@@ -30,7 +30,7 @@ class AdminAboutController extends Controller
             'total_project' => 'required|integer|min:0',
             'core' => 'array', // Validasi array untuk skill
             'core.*' => 'string|max:100',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048',
         ]);
 
         $about = About::first();

@@ -31,7 +31,7 @@ class AdminHomeController extends Controller
             'deskripsi' => 'required|string',
             'role' => 'array', // Role harus berupa array
             'role.*' => 'string|max:100',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max 2MB
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048', // Max 2MB
             'email' => 'nullable|email',
             'github' => 'nullable|url',
             'linkedin' => 'nullable|url',

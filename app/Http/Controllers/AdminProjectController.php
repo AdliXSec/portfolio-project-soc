@@ -40,7 +40,7 @@ class AdminProjectController extends Controller
 
             // Validasi Gambar (Multiple)
             'galery' => 'nullable|array',
-            'galery.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'galery.*' => 'image|mimes:jpeg,png,jpg,gif|max:5048'
         ]);
 
         $project = new Project($request->except(['galery']));
@@ -78,7 +78,7 @@ class AdminProjectController extends Controller
 
         $request->validate([
             'judul' => 'required|string|max:255',
-            'galery.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'galery.*' => 'image|mimes:jpeg,png,jpg,gif|max:5048'
         ]);
 
         $project->fill($request->except(['galery']));

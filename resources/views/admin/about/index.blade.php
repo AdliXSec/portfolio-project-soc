@@ -90,7 +90,7 @@
                         <label>Description (Bio)</label>
                         <textarea class="form-control text-white" name="deskripsi" rows="8"
                                   placeholder="Write your bio here..."
-                                  style="line-height: 1.6;" required>{{ old('deskripsi', $about->deskripsi) }}</textarea>
+                                  style="line-height: 1.6; height: 200px;" required>{{ old('deskripsi', $about->deskripsi) }}</textarea>
                         <div class="d-flex justify-content-between mt-2">
                             <small class="text-muted">Supports basic HTML tags (&lt;p&gt;, &lt;br&gt;, &lt;b&gt;)</small>
                             <small class="text-muted"><i class="mdi mdi-keyboard"></i> Writing Mode</small>

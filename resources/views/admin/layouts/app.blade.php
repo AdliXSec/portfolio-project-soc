@@ -21,7 +21,7 @@
     @endphp
     <link rel="shortcut icon" href="{{ asset('img/home/'.$header->foto) }}" />
   </head>
-  <body>
+  <body style="background-color: black;">
     <div class="container-scroller">
 
       @include('admin.layouts.sidebar')

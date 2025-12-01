@@ -26,7 +26,7 @@ class AdminTechController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:50',
-            'foto' => 'required|image|mimes:png,jpg,jpeg,svg|max:2048', // Wajib ada gambar/logo
+            'foto' => 'required|image|mimes:png,jpg,jpeg,svg|max:5048', // Wajib ada gambar/logo
         ]);
 
         $tech = new Tech();
@@ -57,7 +57,7 @@ class AdminTechController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:50',
-            'foto' => 'nullable|image|mimes:png,jpg,jpeg,svg|max:2048',
+            'foto' => 'nullable|image|mimes:png,jpg,jpeg,svg|max:5048',
         ]);
 
         $tech = Tech::findOrFail($id);

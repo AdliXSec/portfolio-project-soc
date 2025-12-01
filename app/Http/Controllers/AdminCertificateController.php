@@ -36,7 +36,7 @@ class AdminCertificateController extends Controller
             'skill' => 'nullable|array',
             'skill.*' => 'string',
 
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:5048',
         ]);
 
         $cert = new Certificate($request->except(['foto']));
@@ -68,7 +68,7 @@ class AdminCertificateController extends Controller
 
         $request->validate([
             'judul' => 'required|string|max:255',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5048',
         ]);
 
         $cert->fill($request->except(['foto']));

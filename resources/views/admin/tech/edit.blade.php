@@ -23,7 +23,7 @@
 
                         <div class="preview-box p-4 border border-secondary rounded bg-dark d-flex align-items-center justify-content-center"
                              style="width: 150px; height: 150px; overflow: hidden; position: relative; z-index: 2;">
-                            <img src="{{ asset($tech->foto) }}"
+                            <img src="{{ asset('img/code/'.$tech->foto) }}"
                                  alt="Preview"
                                  id="imgPreview"
                                  class="img-fluid"
