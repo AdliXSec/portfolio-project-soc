@@ -4,20 +4,27 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>@yield('title', 'Naufal Syahruradli | Portfolio')</title>
-    <meta name="description" content="@yield('meta_description', 'Portfolio Naufal Syahruradli')">
-    <meta name="keywords" content="@yield('meta_keywords', 'Backend Developer, IoT, Cyber Security')">
+    <meta name="theme-color" content="#050505">
+    <title>@yield('title', 'Naufal Syahruradli | Cyber Security & Backend Dev')</title>
+    <meta name="description" content="@yield('meta_description', 'Portfolio Naufal Syahruradli - Backend Developer & Cyber Security Enthusiast specialized in Laravel and Network Security.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'Backend Developer, IoT, Cyber Security, Laravel, Penetration Testing, Naufal Syahruradli')">
     <meta name="author" content="Naufal Syahruradli">
-    <link rel="canonical" href="{{ url()->current() }}">
-
-    <meta property="og:image" content="{{ asset('img/home/adli2.png') }}">
-    <link rel="icon" type="image/png" href="{{ asset('img/home/adli2.png') }}">
-
+    <meta name="robots" content="index, follow"><link rel="canonical" href="{{ url()->current() }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('title', 'Naufal Syahruradli | Portfolio')">
+    <meta property="og:description" content="@yield('meta_description', 'Portfolio Naufal Syahruradli - Backend Developer & Cyber Security Enthusiast.')">
+    <meta property="og:image" content="@yield('og_image', asset('img/adli2.png'))">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="@yield('title', 'Naufal Syahruradli | Portfolio')">
+    <meta name="twitter:description" content="@yield('meta_description', 'Portfolio Naufal Syahruradli - Backend Developer & Cyber Security Enthusiast.')">
+    <meta name="twitter:image" content="@yield('og_image', asset('img/adli2.png'))">
+    <link rel="icon" type="image/png" href="{{ asset('img/adli2.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/aos.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])

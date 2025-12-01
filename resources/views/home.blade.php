@@ -8,75 +8,75 @@
 
 @section('content')
     <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-    <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]"></div>
-    <div class="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px]"></div>
+        <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px]"></div>
 
-    <div class="container mx-auto p-6 relative z-10">
-        <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="container mx-auto p-6 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
 
-            <div class="order-2 md:order-1 space-y-6 text-center md:text-left" data-aos="fade-right" data-aos-duration="1000">
-                <div class="inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-semibold mb-2">
-                    👋 Welcome to my portfolio
-                </div>
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight text-white">
-                    Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">{{ optional($profile)->nama ?? 'Naufal Syahruradli' }}</span>
-                </h1>
+                <div class="order-2 md:order-1 space-y-6 text-center md:text-left" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="inline-block px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-semibold mb-2">
+                        👋 Welcome to my portfolio
+                    </div>
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight text-white">
+                        Hi, I'm <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">{{ optional($profile)->nama ?? 'Naufal Syahruradli' }}</span>
+                    </h1>
 
-                <div class="text-xl md:text-2xl text-gray-400 font-light h-10">
-                    I am a <span id="role" class="font-semibold text-white"></span>
-                </div>
+                    <div class="text-xl md:text-2xl text-gray-400 font-light h-10">
+                        I am a <span id="role" class="font-semibold text-white"></span>
+                    </div>
 
-                <p class="text-gray-400 max-w-lg mx-auto md:mx-0 leading-relaxed">
-                    {{ optional($profile)->deskripsi ?? 'Transforming complex problems into elegant, secure, and scalable digital solutions. Let\'s build something amazing together.' }}
-                </p>
+                    <p class="text-gray-400 max-w-lg mx-auto md:mx-0 leading-relaxed">
+                        {{ optional($profile)->deskripsi ?? 'Transforming complex problems into elegant, secure, and scalable digital solutions. Let\'s build something amazing together.' }}
+                    </p>
 
-                <div class="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
-                    <a href="#project" class="px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)]">
-                        View Work
-                    </a>
-                    <a href="#contact" class="px-8 py-3 rounded-full border border-gray-600 hover:border-white text-gray-300 hover:text-white transition-all hover:bg-white/5">
-                        Contact Me
-                    </a>
-                </div>
-
-                <div class="flex gap-6 justify-center md:justify-start pt-6">
-                    @if(optional($profile)->github)
-                        <a href="{{ $profile->github }}" target="_blank" class="text-gray-400 hover:text-white hover:scale-110 transition-transform">
-                            <i class="fa-brands fa-github text-2xl"></i>
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start pt-4">
+                        <a href="#project" class="px-8 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:shadow-[0_0_30px_rgba(37,99,235,0.5)]">
+                            View Work
                         </a>
-                    @endif
-
-                    @if(optional($profile)->linkedin)
-                        <a href="{{ $profile->linkedin }}" target="_blank" class="text-gray-400 hover:text-blue-400 hover:scale-110 transition-transform">
-                            <i class="fa-brands fa-linkedin text-2xl"></i>
+                        <a href="#contact" class="px-8 py-3 rounded-full border border-gray-600 hover:border-white text-gray-300 hover:text-white transition-all hover:bg-white/5">
+                            Contact Me
                         </a>
-                    @endif
+                    </div>
 
-                    @if(optional($profile)->instagram)
-                        <a href="{{ $profile->instagram }}" target="_blank" class="text-gray-400 hover:text-pink-500 hover:scale-110 transition-transform">
-                            <i class="fa-brands fa-instagram text-2xl"></i>
-                        </a>
-                    @endif
+                    <div class="flex gap-6 justify-center md:justify-start pt-6">
+                        @if(optional($profile)->github)
+                            <a href="{{ $profile->github }}" target="_blank" class="text-gray-400 hover:text-white hover:scale-110 transition-transform">
+                                <i class="fa-brands fa-github text-2xl"></i>
+                            </a>
+                        @endif
+
+                        @if(optional($profile)->linkedin)
+                            <a href="{{ $profile->linkedin }}" target="_blank" class="text-gray-400 hover:text-blue-400 hover:scale-110 transition-transform">
+                                <i class="fa-brands fa-linkedin text-2xl"></i>
+                            </a>
+                        @endif
+
+                        @if(optional($profile)->instagram)
+                            <a href="{{ $profile->instagram }}" target="_blank" class="text-gray-400 hover:text-pink-500 hover:scale-110 transition-transform">
+                                <i class="fa-brands fa-instagram text-2xl"></i>
+                            </a>
+                        @endif
+                    </div>
                 </div>
-            </div>
 
-            <div class="order-1 md:order-2 flex justify-center relative" data-aos="fade-left" data-aos-duration="1200">
-                <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 group">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
-                    <img  loading="lazy" src="{{ $profile && $profile->foto ? asset('img/home/'.$profile->foto) : asset('img/adli2.png') }}"
-                         alt="{{ optional($profile)->nama ?? 'Profile' }}"
-                         class="relative w-full h-full object-cover rounded-full border-2 border-white/10 shadow-2xl z-10 grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-[1.02]">
+                <div class="order-1 md:order-2 flex justify-center relative" data-aos="fade-left" data-aos-duration="1200">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 group">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
+                        <img  loading="lazy" src="{{ $profile && $profile->foto ? asset('img/home/'.$profile->foto) : asset('img/adli2.png') }}"
+                            alt="{{ optional($profile)->nama ?? 'Profile' }}"
+                            class="relative w-full h-full object-cover rounded-full border-2 border-white/10 shadow-2xl z-10 grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-[1.02]">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="absolute bottom-10 animate-bounce hidden md:block">
-        <a href="#about" class="text-gray-500 hover:text-white transition-colors">
-            <i class="fa-solid fa-arrow-down text-xl"></i>
-        </a>
-    </div>
-</section>
+        <div class="absolute bottom-10 z-50 animate-bounce hidden md:block">
+            <a href="#about" class="text-gray-500 hover:text-white transition-colors cursor-pointer">
+                <i class="fa-solid fa-arrow-down text-xl"></i>
+            </a>
+        </div>
+    </section>
 
     <section id="about" class="py-24 bg-[#0a0a0a]">
         <div class="container mx-auto p-6">
@@ -307,7 +307,7 @@
         </div>
     </section>
 
-    {{-- <section class="bg-[#050505] py-20 relative overflow-hidden" id="achievements">
+    <section class="bg-[#050505] py-20 relative overflow-hidden" id="achievements">
         <div class="container mx-auto p-6 relative z-10">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Certifications & <span class="text-blue-500">Awards</span></h2>
@@ -315,28 +315,50 @@
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach($certificates as $index => $cert)
-                <div class="glass-card p-6 rounded-2xl relative group hover:-translate-y-2 transition-transform duration-300 h-full flex flex-col"
+                <div class="glass-card rounded-2xl relative group hover:-translate-y-2 transition-transform duration-300 h-full flex flex-col overflow-hidden"
                     data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
 
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl bg-blue-500/10 text-blue-400">
-                            <i class="fas {{ $cert->icon ?? 'fa-award' }}"></i>
+                    <div class="relative h-48 w-full overflow-hidden">
+                        <div class="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full">
+                            <span class="text-xs font-mono text-blue-400 font-bold">
+                                {{ \Carbon\Carbon::parse($cert->tanggal)->year }}
+                            </span>
                         </div>
-                        <span class="text-xs font-mono text-gray-500 border border-gray-700 px-2 py-1 rounded-md">
-                            {{ \Carbon\Carbon::parse($cert->tanggal)->year }}
-                        </span>
+
+                        <img  loading="lazy" src="{{ asset('img/cert/' . ($cert->foto ?? 'default.jpg')) }}"
+                            alt="{{ $cert->judul }}"
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-60"></div>
                     </div>
 
-                    <div class="flex-grow">
-                        <h3 class="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">{{ $cert->judul }}</h3>
-                        <p class="text-sm text-blue-500 font-medium mb-3">{{ $cert->issued }}</p>
-                        <p class="text-sm text-gray-400 leading-relaxed">{{ Str::limit($cert->deskripsi, 80) }}</p>
-                    </div>
+                    <div class="p-6 flex flex-col flex-grow relative">
+                        <div class="absolute -top-6 left-6 w-12 h-12 rounded-xl flex items-center justify-center text-xl bg-[#0a0a0a] border border-white/10 text-blue-400 shadow-lg">
+                            @if ($cert->type == 'Award')
+                                <i class="fas fa-award"></i>
+                            @elseif ($cert->type == 'Certificate')
+                                <i class="fas fa-trophy"></i>
+                            @elseif ($cert->type == 'Competency')
+                                <i class="fas fa-certificate"></i>
+                            @endif
+                        </div>
 
-                    <div class="pt-6 mt-auto border-t border-white/5">
-                        <a href="{{ route('certificate.show', $cert->slug) }}" class="inline-flex items-center text-sm text-gray-400 hover:text-white transition-colors">
-                        View Detail <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
+                        <div class="mt-4 flex-grow">
+                            <h3 class="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors line-clamp-2">
+                                {{ $cert->judul }}
+                            </h3>
+                            <p class="text-sm text-blue-500 font-medium mb-3">{{ $cert->issued }}</p>
+                            <p class="text-sm text-gray-400 leading-relaxed line-clamp-3">
+                                {{ Str::limit($cert->deskripsi, 80) }}
+                            </p>
+                        </div>
+
+                        <div class="pt-6 mt-auto border-t border-white/5">
+                            <a href="{{ route('certificate.show', $cert->slug) }}" class="inline-flex items-center text-sm text-gray-400 hover:text-white transition-colors group/link">
+                                View Credential
+                                <i class="fas fa-arrow-right ml-2 transition-transform group-hover/link:translate-x-1"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 @endforeach
@@ -350,73 +372,7 @@
                 </div>
             </div>
         </div>
-    </section> --}}
-    <section class="bg-[#050505] py-20 relative overflow-hidden" id="achievements">
-    <div class="container mx-auto p-6 relative z-10">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Certifications & <span class="text-blue-500">Awards</span></h2>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach($certificates as $index => $cert)
-            <div class="glass-card rounded-2xl relative group hover:-translate-y-2 transition-transform duration-300 h-full flex flex-col overflow-hidden"
-                 data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
-
-                <div class="relative h-48 w-full overflow-hidden">
-                    <div class="absolute top-3 right-3 z-10 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full">
-                        <span class="text-xs font-mono text-blue-400 font-bold">
-                            {{ \Carbon\Carbon::parse($cert->tanggal)->year }}
-                        </span>
-                    </div>
-
-                    <img  loading="lazy" src="{{ asset('img/cert/' . ($cert->foto ?? 'default.jpg')) }}"
-                         alt="{{ $cert->judul }}"
-                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
-
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-60"></div>
-                </div>
-
-                <div class="p-6 flex flex-col flex-grow relative">
-                    <div class="absolute -top-6 left-6 w-12 h-12 rounded-xl flex items-center justify-center text-xl bg-[#0a0a0a] border border-white/10 text-blue-400 shadow-lg">
-                        @if ($cert->type == 'Award')
-                            <i class="fas fa-award"></i>
-                        @elseif ($cert->type == 'Certificate')
-                            <i class="fas fa-trophy"></i>
-                        @elseif ($cert->type == 'Competency')
-                            <i class="fas fa-certificate"></i>
-                        @endif
-                    </div>
-
-                    <div class="mt-4 flex-grow">
-                        <h3 class="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors line-clamp-2">
-                            {{ $cert->judul }}
-                        </h3>
-                        <p class="text-sm text-blue-500 font-medium mb-3">{{ $cert->issued }}</p>
-                        <p class="text-sm text-gray-400 leading-relaxed line-clamp-3">
-                            {{ Str::limit($cert->deskripsi, 80) }}
-                        </p>
-                    </div>
-
-                    <div class="pt-6 mt-auto border-t border-white/5">
-                        <a href="{{ route('certificate.show', $cert->slug) }}" class="inline-flex items-center text-sm text-gray-400 hover:text-white transition-colors group/link">
-                            View Credential
-                            <i class="fas fa-arrow-right ml-2 transition-transform group-hover/link:translate-x-1"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-
-        <div class="mt-16 text-center" data-aos="zoom-in">
-            <div class="inline-block p-[1px] rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
-                <a href="{{ asset('storage/'. $profile->cv .'') }}" target="_blank" class="block px-8 py-3 rounded-full bg-[#0a0a0a] text-white font-semibold hover:bg-transparent transition-all duration-300 flex items-center gap-2">
-                    <i class="fas fa-download"></i> Download Full Resume
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
+    </section>
 
     <section class="bg-[#0a0a0a] pb-20 pt-20" id="contact">
         <div class="container mx-auto px-4 max-w-4xl">
