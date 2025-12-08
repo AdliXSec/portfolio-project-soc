@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <head>
     <meta charset="UTF-8" />
@@ -21,7 +21,18 @@
     <meta name="twitter:title" content="@yield('title', 'Naufal Syahruradli | Portfolio')">
     <meta name="twitter:description" content="@yield('meta_description', 'Portfolio Naufal Syahruradli - Backend Developer & Cyber Security Enthusiast.')">
     <meta name="twitter:image" content="@yield('og_image', asset('img/adli2.png'))">
+
+    {{-- PWA & Icons --}}
     <link rel="icon" type="image/png" href="{{ asset('img/adli2.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('img/adli2.png') }}">
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+
+    {{-- Preload Critical Resources --}}
+    <link rel="preload" href="{{ asset('css/aos.css') }}" as="style">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -29,23 +40,325 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050505; color: #e5e7eb; overflow-x: hidden; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
-        .glass-nav { background: rgba(5, 5, 5, 0.7); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
-        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; }
-        .glass-input { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); color: white; transition: all 0.3s; }
-        .glass-input:focus { background: rgba(255, 255, 255, 0.08); border-color: #3b82f6; outline: none; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; transition: background-color 0.3s, color 0.3s; }
+
+        /* Dark Mode (Default) */
+        .dark body, html.dark body { background-color: #050505; color: #e5e7eb; }
+        .dark ::-webkit-scrollbar { width: 8px; }
+        .dark ::-webkit-scrollbar-track { background: #0a0a0a; }
+        .dark ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        .dark ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+        .dark .glass-nav { background: rgba(5, 5, 5, 0.7); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .dark .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; }
+        .dark .glass-input { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); color: white; transition: all 0.3s; }
+        .dark .glass-input:focus { background: rgba(255, 255, 255, 0.08); border-color: #3b82f6; outline: none; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
+        .dark .bg-dark-section { background-color: #0a0a0a; }
+        .dark .bg-darker-section { background-color: #050505; }
+        .dark .text-main { color: #e5e7eb; }
+        .dark .text-muted-custom { color: #9ca3af; }
+        .dark footer { background-color: #050505; border-color: rgba(255, 255, 255, 0.1); }
+
+        /* Light Mode */
+        html:not(.dark) body { background-color: #f8fafc; color: #1e293b; }
+        html:not(.dark) ::-webkit-scrollbar { width: 8px; }
+        html:not(.dark) ::-webkit-scrollbar-track { background: #e2e8f0; }
+        html:not(.dark) ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
+        html:not(.dark) ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+        html:not(.dark) .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+        html:not(.dark) .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(0, 0, 0, 0.1); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; }
+        html:not(.dark) .glass-input { background: rgba(255, 255, 255, 0.9); border: 1px solid #d1d5db; color: #1e293b; transition: all 0.3s; }
+        html:not(.dark) .glass-input:focus { background: white; border-color: #3b82f6; outline: none; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+        html:not(.dark) .bg-dark-section, html:not(.dark) .bg-\[\#0a0a0a\] { background-color: #f1f5f9 !important; }
+        html:not(.dark) .bg-darker-section, html:not(.dark) .bg-\[\#050505\] { background-color: #f8fafc !important; }
+        html:not(.dark) .text-white { color: #1e293b !important; }
+        html:not(.dark) .text-gray-300, html:not(.dark) .text-gray-400 { color: #64748b !important; }
+        html:not(.dark) .text-gray-500 { color: #94a3b8 !important; }
+        html:not(.dark) .border-white\/10, html:not(.dark) .border-white\/5 { border-color: rgba(0, 0, 0, 0.1) !important; }
+        html:not(.dark) footer { background-color: #f8fafc !important; border-color: rgba(0, 0, 0, 0.1) !important; }
+        html:not(.dark) #preloader { background-color: #f8fafc !important; }
+        html:not(.dark) .bg-blue-600\/20, html:not(.dark) .bg-purple-600\/20 { opacity: 0.3; }
+        html:not(.dark) select.bg-\[\#050505\] { background-color: #ffffff !important; color: #1e293b !important; border: 1px solid #d1d5db !important; }
+        html:not(.dark) .bg-gradient-to-t.from-\[\#050505\] { background: linear-gradient(to top, rgba(248, 250, 252, 0.9), transparent) !important; }
+        html:not(.dark) .bg-black\/50 { background-color: rgba(255, 255, 255, 0.9) !important; }
+        html:not(.dark) .border-gray-800 { border-color: #e2e8f0 !important; }
+        html:not(.dark) .border-gray-700 { border-color: #cbd5e1 !important; }
+        html:not(.dark) .bg-\[\#111\] { background-color: #ffffff !important; }
+        html:not(.dark) .from-\[\#050505\] { --tw-gradient-from: #f8fafc !important; }
+        html:not(.dark) .via-\[\#050505\]\/50 { --tw-gradient-via: rgba(248, 250, 252, 0.5) !important; }
+        html:not(.dark) .text-blue-400 { color: #2563eb !important; }
+        html:not(.dark) .text-blue-500 { color: #3b82f6 !important; }
+        html:not(.dark) .hover\:text-blue-400:hover { color: #2563eb !important; }
+        html:not(.dark) .bg-white\/5, html:not(.dark) .bg-white\/10 { background-color: rgba(0, 0, 0, 0.05) !important; }
+        html:not(.dark) .hover\:bg-white\/5:hover, html:not(.dark) .hover\:bg-white\/10:hover { background-color: rgba(0, 0, 0, 0.08) !important; }
+        html:not(.dark) .bg-black\/60 { background-color: rgba(255, 255, 255, 0.8) !important; }
+        html:not(.dark) .bg-black\/90 { background-color: rgba(255, 255, 255, 0.95) !important; }
+        html:not(.dark) .text-white\/70, html:not(.dark) .text-white\/80 { color: #475569 !important; }
+        html:not(.dark) input.text-white, html:not(.dark) textarea.text-white { color: #1e293b !important; }
+        html:not(.dark) input::placeholder, html:not(.dark) textarea::placeholder { color: #94a3b8 !important; }
+        html:not(.dark) .grayscale { filter: none !important; }
+
+        /* Common Styles */
         .loader { width: 50px; height: 50px; border-radius: 50%; border: 3px solid transparent; border-top-color: #3b82f6; animation: spin 1s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
         .timeline-line::before { content: ''; position: absolute; top: 0; bottom: 0; left: 1.5rem; width: 2px; background: linear-gradient(to bottom, #3b82f6, transparent); z-index: 0; }
         @media (min-width: 1024px) { .timeline-line::before { left: 50%; transform: translateX(-50%); } }
+
+        /* Theme Toggle Switch */
+        .theme-switch {
+            font-size: 17px;
+            position: relative;
+            display: inline-block;
+            width: 64px;
+            height: 34px;
+        }
+        .theme-switch .theme-input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .theme-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #73C0FC;
+            transition: .4s;
+            border-radius: 30px;
+        }
+        .theme-slider:before {
+            position: absolute;
+            content: "";
+            height: 30px;
+            width: 30px;
+            border-radius: 20px;
+            left: 2px;
+            bottom: 2px;
+            z-index: 2;
+            background-color: #e8e8e8;
+            transition: .4s;
+        }
+        .theme-switch .sun svg {
+            position: absolute;
+            top: 6px;
+            left: 36px;
+            z-index: 1;
+            width: 24px;
+            height: 24px;
+        }
+        .theme-switch .moon svg {
+            fill: #73C0FC;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            z-index: 1;
+            width: 24px;
+            height: 24px;
+        }
+        .theme-switch .sun svg {
+            animation: rotate 15s linear infinite;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0); }
+            100% { transform: rotate(360deg); }
+        }
+        .theme-switch .moon svg {
+            animation: tilt 5s linear infinite;
+        }
+        @keyframes tilt {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .theme-input:checked + .theme-slider {
+            background-color: #183153;
+        }
+        .theme-input:focus + .theme-slider {
+            box-shadow: 0 0 1px #183153;
+        }
+        .theme-input:checked + .theme-slider:before {
+            transform: translateX(30px);
+        }
+
+        /* Custom Cursor */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #3b82f6;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+            transform: translate(-50%, -50%);
+        }
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.15s ease-out;
+            transform: translate(-50%, -50%);
+        }
+        .cursor-outline.hover {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(59, 130, 246, 0.8);
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .cursor-outline.clicking {
+            transform: translate(-50%, -50%) scale(0.8);
+        }
+        @media (max-width: 768px) {
+            .cursor-dot, .cursor-outline { display: none; }
+        }
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            z-index: 9999;
+            transition: width 0.1s ease-out;
+        }
+
+        /* Skeleton Loading */
+        .skeleton {
+            background: linear-gradient(90deg, #1a1a2e 25%, #252542 50%, #1a1a2e 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 8px;
+        }
+        html:not(.dark) .skeleton {
+            background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+            background-size: 200% 100%;
+        }
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .skeleton-img {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        img.loaded + .skeleton-img { display: none; }
+
+        /* Animated Counter */
+        .counter-value {
+            display: inline-block;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Testimonial Slider */
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+        }
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .testimonial-card {
+            min-width: 100%;
+            padding: 0 1rem;
+        }
+        @media (min-width: 768px) {
+            .testimonial-card { min-width: 50%; }
+        }
+        @media (min-width: 1024px) {
+            .testimonial-card { min-width: 33.333%; }
+        }
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 2rem;
+        }
+        .testimonial-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .testimonial-dot.active {
+            background: #3b82f6;
+            transform: scale(1.2);
+        }
+        html:not(.dark) .testimonial-dot {
+            background: rgba(0, 0, 0, 0.2);
+        }
     </style>
+
+    <script>
+        // Check theme on page load (before render to prevent flash)
+        (function() {
+            const isDark = localStorage.getItem('theme') === 'dark' ||
+                          (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            if (isDark) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        })();
+    </script>
 </head>
 
 <body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-outline" id="cursorOutline"></div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
 
     <div id="preloader" class="fixed inset-0 bg-[#050505] flex items-center justify-center z-[9999]">
         <div class="loader"></div>
@@ -110,11 +423,21 @@
                     @auth
                         <li>
                             <a href="{{ route('admin.dashboard') }}"
-                            class="block py-2 px-3 text-gray-300 hover:text-blue-400 transition-colors border-l border-gray-700 pl-6 ml-2">
+                            class="block py-2 px-3 text-gray-300 dark:text-gray-300 hover:text-blue-400 transition-colors border-l border-gray-700 pl-6 ml-2">
                             Dashboard
                             </a>
                         </li>
                     @endauth
+
+                    {{-- Theme Toggle --}}
+                    <li class="flex items-center md:ml-4 md:pl-4 md:border-l md:border-gray-700">
+                        <label class="theme-switch">
+                            <span class="sun"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="#ffd43b"><circle r="5" cy="12" cx="12"></circle><path d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1 -.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1 -.75.29zm-12.02 12.02a1 1 0 0 1 -.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1 -.7.24zm6.36-14.36a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm0 17a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm-5.66-14.66a1 1 0 0 1 -.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.29zm12.02 12.02a1 1 0 0 1 -.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.24z"></path></g></svg></span>
+                            <span class="moon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="m223.5 32c-123.5 0-223.5 100.3-223.5 224s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path></svg></span>
+                            <input type="checkbox" class="theme-input" id="theme-toggle">
+                            <span class="theme-slider"></span>
+                        </label>
+                    </li>
 
                 </ul>
             </div>
@@ -315,6 +638,129 @@
             menuToggle.addEventListener("click", () => { menu.classList.toggle("hidden"); });
             document.querySelectorAll('#mobile-menu a').forEach(link => { link.addEventListener('click', () => menu.classList.add('hidden')); });
         }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            // Set initial checkbox state based on current theme
+            themeToggle.checked = document.documentElement.classList.contains('dark');
+
+            themeToggle.addEventListener('change', () => {
+                const html = document.documentElement;
+
+                if (themeToggle.checked) {
+                    html.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    html.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+        }
+
+        // Custom Cursor
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorOutline = document.getElementById('cursorOutline');
+
+        if (cursorDot && cursorOutline && window.innerWidth > 768) {
+            let mouseX = 0, mouseY = 0;
+            let outlineX = 0, outlineY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.left = mouseX + 'px';
+                cursorDot.style.top = mouseY + 'px';
+            });
+
+            // Smooth follow for outline
+            function animateOutline() {
+                outlineX += (mouseX - outlineX) * 0.15;
+                outlineY += (mouseY - outlineY) * 0.15;
+                cursorOutline.style.left = outlineX + 'px';
+                cursorOutline.style.top = outlineY + 'px';
+                requestAnimationFrame(animateOutline);
+            }
+            animateOutline();
+
+            // Hover effect on interactive elements
+            const hoverElements = document.querySelectorAll('a, button, input, textarea, [data-cursor-hover]');
+            hoverElements.forEach(el => {
+                el.addEventListener('mouseenter', () => cursorOutline.classList.add('hover'));
+                el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hover'));
+            });
+
+            // Click effect
+            document.addEventListener('mousedown', () => cursorOutline.classList.add('clicking'));
+            document.addEventListener('mouseup', () => cursorOutline.classList.remove('clicking'));
+        }
+
+        // Scroll Progress Bar
+        const scrollProgress = document.getElementById('scrollProgress');
+        if (scrollProgress) {
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const progress = (scrollTop / scrollHeight) * 100;
+                scrollProgress.style.width = progress + '%';
+            });
+        }
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        if (backToTop) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 500) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+            });
+
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Animated Counter
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start);
+                }
+            }, 16);
+        }
+
+        // Intersection Observer for counters
+        const counterElements = document.querySelectorAll('[data-counter]');
+        if (counterElements.length > 0) {
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                        const target = parseInt(entry.target.dataset.counter);
+                        animateCounter(entry.target, target);
+                        entry.target.classList.add('counted');
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counterElements.forEach(el => counterObserver.observe(el));
+        }
+
+        // Skeleton Loading for Images
+        document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+            if (img.complete) {
+                img.classList.add('loaded');
+            } else {
+                img.addEventListener('load', () => img.classList.add('loaded'));
+            }
+        });
     </script>
 
     @stack('scripts')

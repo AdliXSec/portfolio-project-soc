@@ -4,7 +4,9 @@
 --}}
 @extends('layouts.app')
 
-@section('title', 'Naufal Syahruradli | Portfolio')
+@section('title', 'Naufal Syahruradli | Backend Developer & Cyber Security')
+@section('meta_description', 'Portfolio of Naufal Syahruradli - Backend Developer & Cyber Security Enthusiast.')
+@section('meta_keywords', 'Naufal Syahruradli, Backend Developer, Cyber Security, Laravel, PHP, Portfolio')
 
 @section('content')
     <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
@@ -63,7 +65,7 @@
                 <div class="order-1 md:order-2 flex justify-center relative" data-aos="fade-left" data-aos-duration="1200">
                     <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 group">
                         <div class="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
-                        <img  loading="lazy" src="{{ $profile && $profile->foto ? asset('img/home/'.$profile->foto) : asset('img/adli2.png') }}"
+                        <img  loading="lazy" src="{{ $profile && $profile->foto ? asset('storage/home/'.$profile->foto) : asset('img/adli2.png') }}"
                             alt="{{ optional($profile)->nama ?? 'Profile' }}"
                             class="relative w-full h-full object-cover rounded-full border-2 border-white/10 shadow-2xl z-10 grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-[1.02]">
                     </div>
@@ -89,10 +91,10 @@
                 <div class="md:col-span-5 lg:col-span-4 relative">
                     <div class="rounded-2xl overflow-hidden shadow-2xl border border-white/10 relative group">
                         <div class="absolute inset-0 bg-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity z-10"></div>
-                        <img  loading="lazy" src="{{ $about && $about->foto ? asset('img/about/'.$about->foto) : asset('img/adli.jpg') }}" alt="About Image" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-110">
+                        <img  loading="lazy" src="{{ $about && $about->foto ? asset('storage/about/'.$about->foto) : asset('img/adli.jpg') }}" alt="About Image" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-110">
                     </div>
                     <div class="absolute -bottom-6 -right-6 bg-[#111] border border-white/10 p-4 rounded-xl shadow-xl hidden md:block">
-                        <p class="text-3xl font-bold text-blue-500">{{ optional($about)->total_project ?? '100' }}+</p>
+                        <p class="text-3xl font-bold text-blue-500"><span data-counter="{{ optional($about)->total_project ?? 100 }}">0</span>+</p>
                         <p class="text-xs text-gray-400 uppercase tracking-wider">Projects Done</p>
                     </div>
                 </div>
@@ -102,7 +104,7 @@
                     <p class="text-blue-400 font-medium">{{ optional($about)->subjudul ?? 'Backend Developer' }}</p>
 
                     <div class="text-gray-400 leading-relaxed text-justify space-y-4">
-                        {!! optional($about)->deskripsi !!}
+                        {!! strip_tags(optional($about)->deskripsi, '<p><br><strong><em><ul><ol><li><a><h1><h2><h3><h4><span>') !!}
                     </div>
 
                     <div class="pt-4">
@@ -143,7 +145,7 @@
                     data-aos="fade-up" data-aos-delay="{{ $index * 50 }}">
 
                     <div class="w-16 h-16 flex items-center justify-center bg-white/5 rounded-full group-hover:scale-110 transition-transform duration-300">
-                        <img  loading="lazy" src="{{ asset('img/code/'.$tech->foto) }}" class="w-10 h-10 object-contain" alt="{{ $tech->judul }}">
+                        <img  loading="lazy" src="{{ asset('storage/tech/'.$tech->foto) }}" class="w-10 h-10 object-contain" alt="{{ $tech->judul }}">
                     </div>
                     <h3 class="text-gray-300 font-medium group-hover:text-white text-sm">{{ $tech->judul }}</h3>
                 </div>
@@ -224,7 +226,7 @@
                             ];
                             // Default ke blue jika kategori tidak dikenali
                             $color = $colors[$project->type] ?? 'blue';
-                        $imgSrc = $project->galery[0] ?? 'img/project/p1.png';
+                        $imgSrc = $project->galery[0] ?? 'default.png';
                     @endphp
 
                     @if($isLarge)
@@ -232,7 +234,7 @@
                             data-aos="fade-up" data-aos-delay="100" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
 
                             <div class="md:w-1/2 {{ $index % 2 != 0 ? 'order-1 md:order-2' : '' }}">
-                                <img  loading="lazy" src="{{ asset('img/project/'.$imgSrc) }}" class="w-full h-64 md:h-80 rounded-xl shadow-lg object-cover" alt="{{ $project->judul }}">
+                                <img  loading="lazy" src="{{ asset('storage/project/'.$imgSrc) }}" class="w-full h-64 md:h-80 rounded-xl shadow-lg object-cover" alt="{{ $project->judul }}">
                             </div>
 
                             <div class="md:w-1/2 flex flex-col justify-center space-y-4 {{ $index % 2 != 0 ? 'order-2 md:order-1 text-left md:text-right' : '' }}">
@@ -265,7 +267,7 @@
                             data-aos="{{ $index % 2 == 0 ? 'fade-right' : 'fade-left' }}" data-aos-delay="200" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
 
                             <div class="w-full">
-                                <img  loading="lazy" src="{{ asset('img/project/'.$imgSrc) }}" class="w-full h-48 rounded-xl shadow-lg object-cover" alt="{{ $project->judul }}">
+                                <img  loading="lazy" src="{{ asset('storage/project/'.$imgSrc) }}" class="w-full h-48 rounded-xl shadow-lg object-cover" alt="{{ $project->judul }}">
                             </div>
 
                             <div class="flex flex-col justify-between flex-grow space-y-3">
@@ -325,7 +327,7 @@
                             </span>
                         </div>
 
-                        <img  loading="lazy" src="{{ asset('img/cert/' . ($cert->foto ?? 'default.jpg')) }}"
+                        <img  loading="lazy" src="{{ asset('storage/certificate/' . ($cert->foto ?? 'default.jpg')) }}"
                             alt="{{ $cert->judul }}"
                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100">
 
@@ -366,7 +368,7 @@
 
             <div class="mt-16 text-center" data-aos="zoom-in">
                 <div class="inline-block p-[1px] rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
-                    <a href="{{ asset('storage/'. $profile->cv .'') }}" target="_blank" class="block px-8 py-3 rounded-full bg-[#0a0a0a] text-white font-semibold hover:bg-transparent transition-all duration-300 flex items-center gap-2">
+                    <a href="{{ asset('storage/cv/'. $profile->cv) }}" target="_blank" class="block px-8 py-3 rounded-full bg-[#0a0a0a] text-white font-semibold hover:bg-transparent transition-all duration-300 flex items-center gap-2">
                         <i class="fas fa-download"></i> Download Full Resume
                     </a>
                 </div>
@@ -374,7 +376,118 @@
         </div>
     </section>
 
-    <section class="bg-[#0a0a0a] pb-20 pt-20" id="contact">
+    {{-- Testimonial Section --}}
+    <section class="bg-[#0a0a0a] py-20" id="testimonials">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">What People <span class="text-blue-500">Say</span></h2>
+                <p class="text-gray-400">Feedback from clients and colleagues</p>
+            </div>
+
+            <div class="testimonial-slider" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-track" id="testimonialTrack">
+                    {{-- Testimonial 1 --}}
+                    <div class="testimonial-card">
+                        <div class="glass-card p-8 rounded-2xl h-full">
+                            <div class="flex items-center gap-1 mb-4">
+                                @for($i = 0; $i < 5; $i++)
+                                    <i class="fas fa-star text-yellow-500"></i>
+                                @endfor
+                            </div>
+                            <p class="text-gray-400 mb-6 italic">"Working with Naufal was an absolute pleasure. His expertise in Laravel and attention to security details made our project a success. Highly recommended!"</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                                    JD
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-semibold">John Doe</h4>
+                                    <p class="text-gray-500 text-sm">CEO, Tech Company</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Testimonial 2 --}}
+                    <div class="testimonial-card">
+                        <div class="glass-card p-8 rounded-2xl h-full">
+                            <div class="flex items-center gap-1 mb-4">
+                                @for($i = 0; $i < 5; $i++)
+                                    <i class="fas fa-star text-yellow-500"></i>
+                                @endfor
+                            </div>
+                            <p class="text-gray-400 mb-6 italic">"Exceptional problem-solving skills and deep understanding of cybersecurity. Naufal delivered beyond expectations and on time."</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center text-white font-bold">
+                                    AS
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-semibold">Alice Smith</h4>
+                                    <p class="text-gray-500 text-sm">Project Manager, StartupXYZ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Testimonial 3 --}}
+                    <div class="testimonial-card">
+                        <div class="glass-card p-8 rounded-2xl h-full">
+                            <div class="flex items-center gap-1 mb-4">
+                                @for($i = 0; $i < 5; $i++)
+                                    <i class="fas fa-star text-yellow-500"></i>
+                                @endfor
+                            </div>
+                            <p class="text-gray-400 mb-6 italic">"The IoT solution Naufal built for us was innovative and secure. His technical knowledge is impressive, and he's great to collaborate with."</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white font-bold">
+                                    RB
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-semibold">Robert Brown</h4>
+                                    <p class="text-gray-500 text-sm">CTO, IoT Solutions Inc</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Testimonial 4 --}}
+                    <div class="testimonial-card">
+                        <div class="glass-card p-8 rounded-2xl h-full">
+                            <div class="flex items-center gap-1 mb-4">
+                                @for($i = 0; $i < 5; $i++)
+                                    <i class="fas fa-star text-yellow-500"></i>
+                                @endfor
+                            </div>
+                            <p class="text-gray-400 mb-6 italic">"Naufal's penetration testing uncovered critical vulnerabilities we didn't know existed. Professional, thorough, and highly skilled."</p>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold">
+                                    EW
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-semibold">Emily Wilson</h4>
+                                    <p class="text-gray-500 text-sm">Security Director, FinTech Corp</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Navigation Dots --}}
+                <div class="testimonial-dots" id="testimonialDots"></div>
+
+                {{-- Navigation Arrows --}}
+                <div class="flex justify-center gap-4 mt-6">
+                    <button id="prevTestimonial" class="w-12 h-12 rounded-full border border-gray-700 text-gray-400 hover:border-blue-500 hover:text-blue-500 transition-all flex items-center justify-center">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="nextTestimonial" class="w-12 h-12 rounded-full border border-gray-700 text-gray-400 hover:border-blue-500 hover:text-blue-500 transition-all flex items-center justify-center">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-[#050505] pb-20 pt-20" id="contact">
         <div class="container mx-auto px-4 max-w-4xl">
             <div class="text-center mb-12" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Get in <span class="text-blue-500">Touch</span></h2>
@@ -406,11 +519,12 @@
             </div>
         </div>
     </section>
-    @endsection
+@endsection
 
-    @push('scripts')
+@push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // TypeIt for roles
             const roles = {!! json_encode(optional($profile)->role) !!};
 
             new TypeIt("#role", {
@@ -423,6 +537,86 @@
                 nextStringDelay: 1000,
                 waitUntilVisible: true
             }).go();
+
+            // Testimonial Slider
+            const track = document.getElementById('testimonialTrack');
+            const dotsContainer = document.getElementById('testimonialDots');
+            const prevBtn = document.getElementById('prevTestimonial');
+            const nextBtn = document.getElementById('nextTestimonial');
+
+            if (track && dotsContainer) {
+                const cards = track.querySelectorAll('.testimonial-card');
+                let currentIndex = 0;
+                let cardsPerView = getCardsPerView();
+                let totalSlides = Math.ceil(cards.length / cardsPerView);
+
+                function getCardsPerView() {
+                    if (window.innerWidth >= 1024) return 3;
+                    if (window.innerWidth >= 768) return 2;
+                    return 1;
+                }
+
+                function createDots() {
+                    dotsContainer.innerHTML = '';
+                    for (let i = 0; i < totalSlides; i++) {
+                        const dot = document.createElement('div');
+                        dot.classList.add('testimonial-dot');
+                        if (i === 0) dot.classList.add('active');
+                        dot.addEventListener('click', () => goToSlide(i));
+                        dotsContainer.appendChild(dot);
+                    }
+                }
+
+                function updateDots() {
+                    const dots = dotsContainer.querySelectorAll('.testimonial-dot');
+                    dots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === currentIndex);
+                    });
+                }
+
+                function goToSlide(index) {
+                    currentIndex = index;
+                    const cardWidth = 100 / cardsPerView;
+                    const offset = currentIndex * cardsPerView * cardWidth;
+                    track.style.transform = `translateX(-${offset}%)`;
+                    updateDots();
+                }
+
+                function nextSlide() {
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                    goToSlide(currentIndex);
+                }
+
+                function prevSlide() {
+                    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                    goToSlide(currentIndex);
+                }
+
+                // Event Listeners
+                if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+                if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+                // Auto slide every 5 seconds
+                let autoSlide = setInterval(nextSlide, 5000);
+
+                // Pause on hover
+                track.addEventListener('mouseenter', () => clearInterval(autoSlide));
+                track.addEventListener('mouseleave', () => {
+                    autoSlide = setInterval(nextSlide, 5000);
+                });
+
+                // Handle resize
+                window.addEventListener('resize', () => {
+                    cardsPerView = getCardsPerView();
+                    totalSlides = Math.ceil(cards.length / cardsPerView);
+                    currentIndex = 0;
+                    createDots();
+                    goToSlide(0);
+                });
+
+                // Initialize
+                createDots();
+            }
         });
     </script>
-    @endpush
+@endpush

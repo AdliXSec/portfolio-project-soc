@@ -1,6 +1,39 @@
 @extends('layouts.app')
 
 @section('title', $certificate->judul . ' | Certification')
+@section('meta_description', 'Certificate: ' . $certificate->judul . ' issued by ' . $certificate->penerbit . '. ' . Str::limit($certificate->deskripsi ?? '', 100))
+@section('meta_keywords', $certificate->judul . ', ' . $certificate->penerbit . ', ' . $certificate->type . ', Certificate, Achievement')
+@section('og_image', asset('storage/certificate/' . $certificate->foto))
+
+@section('structured_data')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "EducationalOccupationalCredential",
+    "name": "{{ $certificate->judul }}",
+    "description": "{{ Str::limit($certificate->deskripsi ?? $certificate->judul, 200) }}",
+    "image": "{{ asset('storage/certificate/' . $certificate->foto) }}",
+    "url": "{{ url()->current() }}",
+    "credentialCategory": "{{ $certificate->type }}",
+    "recognizedBy": {
+        "@type": "Organization",
+        "name": "{{ $certificate->penerbit }}"
+    },
+    "dateCreated": "{{ $certificate->created_at->toISOString() }}"
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ url('/') }}"},
+        {"@type": "ListItem", "position": 2, "name": "Certifications", "item": "{{ url('/#achievements') }}"},
+        {"@type": "ListItem", "position": 3, "name": "{{ $certificate->judul }}", "item": "{{ url()->current() }}"}
+    ]
+}
+</script>
+@endsection
 
 @section('content')
     @php
@@ -32,7 +65,7 @@
                 <div class="relative group rounded-2xl overflow-hidden border border-white/10 bg-[#111] p-2 shadow-2xl">
                     <div class="relative rounded-xl overflow-hidden">
                         <div class="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-500 z-10"></div>
-                        <img loading="lazy" src="{{ asset('img/cert/'.$certificate->foto) }}" alt="{{ $certificate->judul }}" class="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-500">
+                        <img loading="lazy" src="{{ asset('storage/certificate/'.$certificate->foto) }}" alt="{{ $certificate->judul }}" class="w-full h-auto object-cover transform group-hover:scale-[1.02] transition-transform duration-500">
                     </div>
                     <div class="absolute bottom-6 right-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <button class="w-12 h-12 rounded-full bg-black/50 backdrop-blur-md text-white border border-white/20 flex items-center justify-center hover:bg-{{ $color }}-600 hover:border-{{ $color }}-600 transition-colors">

@@ -27,7 +27,7 @@
 
                     <div class="icon-container mb-3 p-2 rounded-circle d-flex align-items-center justify-content-center"
                          style="width: 60px; height: 60px; background: rgba(255,255,255,0.05);">
-                        <img loading="lazy" src="{{ asset('img/code/'.$tech->foto) }}" alt="{{ $tech->judul }}" style="max-width: 35px; max-height: 35px;">
+                        <img loading="lazy" src="{{ asset('storage/tech/'.$tech->foto) }}" alt="{{ $tech->judul }}" style="max-width: 35px; max-height: 35px;">
                     </div>
 
                     <h6 class="mb-0 font-weight-bold">{{ $tech->judul }}</h6>

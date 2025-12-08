@@ -25,7 +25,7 @@
                         // Logika ambil gambar pertama atau placeholder
                         $imgSrc = 'https://via.placeholder.com/400x250?text=No+Image';
                         if ($project->galery && is_array($project->galery) && count($project->galery) > 0) {
-                            $imgSrc = asset('img/project/'.$project->galery[0]);
+                            $imgSrc = asset('storage/project/'.$project->galery[0]);
                         }
 
                         // Warna Badge berdasarkan Kategori

@@ -31,7 +31,7 @@
                     <div class="form-group text-center mt-4">
                         <label class="d-block text-start text-muted mb-2">About Image</label>
                         <div class="position-relative d-inline-block w-100">
-                            <img loading="lazy" src="{{ $about->foto ? asset('img/about/'.$about->foto) : 'https://via.placeholder.com/400x300' }}"
+                            <img loading="lazy" src="{{ $about->foto ? asset('storage/about/'.$about->foto) : 'https://via.placeholder.com/400x300' }}"
                                  alt="About Image"
                                  id="imgPreview"
                                  class="img-fluid rounded border border-secondary"

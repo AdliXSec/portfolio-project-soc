@@ -1,11 +1,44 @@
 @extends('layouts.app')
 
 @section('title', $project->judul . ' | Project Detail')
+@section('meta_description', Str::limit(strip_tags($project->deskripsi), 160))
+@section('meta_keywords', implode(', ', $project->teknologi ?? []) . ', ' . $project->type . ', Portfolio Project')
+@section('og_image', asset('storage/project/' . ($project->galery[0] ?? 'default.png')))
+
+@section('structured_data')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": "{{ $project->judul }}",
+    "description": "{{ Str::limit(strip_tags($project->deskripsi), 200) }}",
+    "image": "{{ asset('storage/project/' . ($project->galery[0] ?? 'default.png')) }}",
+    "url": "{{ url()->current() }}",
+    "author": {
+        "@type": "Person",
+        "name": "Naufal Syahruradli"
+    },
+    "genre": "{{ $project->type }}",
+    "keywords": "{{ implode(', ', $project->teknologi ?? []) }}"
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ url('/') }}"},
+        {"@type": "ListItem", "position": 2, "name": "Projects", "item": "{{ route('projects.index') }}"},
+        {"@type": "ListItem", "position": 3, "name": "{{ $project->judul }}", "item": "{{ url()->current() }}"}
+    ]
+}
+</script>
+@endsection
 
 @section('content')
     @php
         // Logika Warna dan Gambar
-        $imgSrc = $project->galery[0] ?? 'img/project/p1.png'; // Ambil gambar pertama
+        $imgSrc = $project->galery[0] ?? 'default.png';
 
         $colors = [
             'Web Development' => 'blue',
@@ -17,7 +50,7 @@
     @endphp
 
     <div class="w-full h-[50vh] relative mt-16">
-        <img loading="lazy" src="{{ asset('img/project/'.$imgSrc) }}" class="w-full h-full object-cover" alt="{{ $project->judul }}">
+        <img loading="lazy" src="{{ asset('storage/project/'.$imgSrc) }}" class="w-full h-full object-cover" alt="{{ $project->judul }}">
         <div class="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/50 to-transparent"></div>
 
         <div class="absolute bottom-0 left-0 w-full p-6 md:p-12 container mx-auto">
@@ -64,9 +97,9 @@
                         <div class="grid grid-cols-2 gap-4">
                             @foreach($project->galery as $img)
                                 <div class="relative group cursor-pointer overflow-hidden rounded-xl border border-white/10"
-                                    onclick="openModal('{{ asset('img/project/'.$img) }}', '{{ $project->judul }}')">
+                                    onclick="openModal('{{ asset('storage/project/'.$img) }}', '{{ $project->judul }}')">
 
-                                    <img loading="lazy" src="{{ asset('img/project/'.$img) }}"
+                                    <img loading="lazy" src="{{ asset('storage/project/'.$img) }}"
                                         class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                                         alt="Gallery Image">
 

@@ -83,7 +83,7 @@
                         <input type="file" name="foto" class="form-control file-upload-info" accept="image/*">
                         @if($certificate->foto)
                             <div class="mt-2">
-                                <img  loading="lazy" src="{{ asset('img/cert/'.$certificate->foto) }}" style="height: 100px; border-radius: 5px;">
+                                <img  loading="lazy" src="{{ asset('storage/certificate/'.$certificate->foto) }}" style="height: 100px; border-radius: 5px;">
                             </div>
                         @endif
                     </div>

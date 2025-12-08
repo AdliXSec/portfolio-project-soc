@@ -15,6 +15,77 @@
     </div>
 </div>
 
+@if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card border border-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="card-title text-warning mb-0"><i class="mdi mdi-cog me-2"></i>SOC Control Panel</h4>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="d-flex align-items-center justify-content-between p-3 rounded" style="background: rgba(255,255,255,0.05);">
+                            <div>
+                                <h6 class="text-white mb-1">SOC Monitoring</h6>
+                                <small class="text-muted">Enable/Disable real-time monitoring</small>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="soc_enabled" class="toggle-input" {{ $settings['soc_enabled'] ?? false ? 'checked' : '' }}>
+                                <label for="soc_enabled" class="toggle-label"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="d-flex align-items-center justify-content-between p-3 rounded" style="background: rgba(255,255,255,0.05);">
+                            <div>
+                                <h6 class="text-white mb-1">Auto Block</h6>
+                                <small class="text-muted">Auto-block suspicious IPs</small>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="soc_auto_block" class="toggle-input" {{ $settings['soc_auto_block'] ?? false ? 'checked' : '' }}>
+                                <label for="soc_auto_block" class="toggle-label"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <form action="{{ route('admin.security.threshold') }}" method="POST" class="d-flex align-items-center justify-content-between p-3 rounded" style="background: rgba(255,255,255,0.05);">
+                            @csrf
+                            @method('PUT')
+                            <div>
+                                <h6 class="text-white mb-1">Block Threshold</h6>
+                                <small class="text-muted">Failed attempts before block</small>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="number" name="threshold" value="{{ $settings['soc_block_threshold'] ?? 5 }}" min="1" max="100" class="form-control form-control-sm text-white text-center" style="width: 60px;">
+                                <button type="submit" class="btn btn-warning btn-sm"><i class="mdi mdi-check"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="mt-3 pt-3 border-top border-secondary">
+                    <div class="d-flex align-items-center">
+                        <div id="soc-status-indicator" class="me-2" style="width: 12px; height: 12px; border-radius: 50%; background: {{ $settings['soc_enabled'] ?? false ? '#00d25b' : '#6c757d' }}; box-shadow: 0 0 10px {{ $settings['soc_enabled'] ?? false ? '#00d25b' : 'transparent' }};"></div>
+                        <span id="soc-status-text" class="{{ $settings['soc_enabled'] ?? false ? 'text-success' : 'text-muted' }}">
+                            SOC is {{ $settings['soc_enabled'] ?? false ? 'Active' : 'Inactive' }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="row">
     <div class="col-md-4 grid-margin stretch-card">
         <div class="card border border-primary">
@@ -187,8 +258,130 @@
     }
 
     // --- 3. JALANKAN INTERVAL (SETIAP 3 DETIK) ---
-    setInterval(fetchSecurityData, 3000);
-    fetchSecurityData(); // Jalankan langsung saat load
+    let socEnabled = {{ $settings['soc_enabled'] ?? false ? 'true' : 'false' }};
+    let fetchInterval = null;
+
+    function startMonitoring() {
+        if (fetchInterval) clearInterval(fetchInterval);
+        fetchInterval = setInterval(fetchSecurityData, 3000);
+        fetchSecurityData();
+    }
+
+    function stopMonitoring() {
+        if (fetchInterval) {
+            clearInterval(fetchInterval);
+            fetchInterval = null;
+        }
+    }
+
+    if (socEnabled) {
+        startMonitoring();
+    }
+
+    // --- 4. TOGGLE SWITCH HANDLER ---
+    function handleToggle(key, checkbox) {
+        const value = checkbox.checked;
+
+        fetch("{{ route('admin.security.toggle') }}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ key: key, value: value })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                if (key === 'soc_enabled') {
+                    const indicator = document.getElementById('soc-status-indicator');
+                    const statusText = document.getElementById('soc-status-text');
+
+                    if (value) {
+                        indicator.style.background = '#00d25b';
+                        indicator.style.boxShadow = '0 0 10px #00d25b';
+                        statusText.className = 'text-success';
+                        statusText.innerText = 'SOC is Active';
+                        socEnabled = true;
+                        startMonitoring();
+                    } else {
+                        indicator.style.background = '#6c757d';
+                        indicator.style.boxShadow = 'none';
+                        statusText.className = 'text-muted';
+                        statusText.innerText = 'SOC is Inactive';
+                        socEnabled = false;
+                        stopMonitoring();
+                    }
+                }
+            } else {
+                checkbox.checked = !value;
+                alert('Failed to update setting');
+            }
+        })
+        .catch(error => {
+            checkbox.checked = !value;
+            console.error('Error:', error);
+        });
+    }
+
+    document.getElementById('soc_enabled').addEventListener('change', function() {
+        handleToggle('soc_enabled', this);
+    });
+
+    document.getElementById('soc_auto_block').addEventListener('change', function() {
+        handleToggle('soc_auto_block', this);
+    });
 </script>
+
+<style>
+    .toggle-switch {
+        position: relative;
+        width: 50px;
+        height: 26px;
+    }
+
+    .toggle-input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .toggle-label {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #3a3a3a;
+        transition: 0.3s;
+        border-radius: 26px;
+    }
+
+    .toggle-label:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.3s;
+        border-radius: 50%;
+    }
+
+    .toggle-input:checked + .toggle-label {
+        background-color: #00d25b;
+        box-shadow: 0 0 10px rgba(0, 210, 91, 0.5);
+    }
+
+    .toggle-input:checked + .toggle-label:before {
+        transform: translateX(24px);
+    }
+
+    .toggle-input:focus + .toggle-label {
+        box-shadow: 0 0 1px #00d25b;
+    }
+</style>
 @endpush
 @endsection

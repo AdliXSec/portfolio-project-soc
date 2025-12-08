@@ -19,7 +19,7 @@
     @php
         $header = \App\Models\Home::first();
     @endphp
-    <link rel="shortcut icon" href="{{ asset('img/home/'.$header->foto) }}" />
+    <link rel="shortcut icon" href="{{ asset('storage/home/'.$header->foto) }}" />
   </head>
   <body style="background-color: black;">
     <div class="container-scroller">

@@ -20,7 +20,7 @@
         <div class="col-md-6 col-xl-4 grid-margin stretch-card">
             <div class="card" style="border-radius: 15px; overflow: hidden;">
                 <div class="position-relative">
-                    <img loading="lazy" src="{{ asset('img/cert/'.$cert->foto) }}" alt="{{ $cert->judul }}"
+                    <img loading="lazy" src="{{ asset('storage/certificate/'.$cert->foto) }}" alt="{{ $cert->judul }}"
                          style="width: 100%; height: 200px; object-fit: cover;">
 
                     @php

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class AdminProjectController extends Controller
 {
@@ -24,42 +24,44 @@ class AdminProjectController extends Controller
     {
         $request->validate([
             'judul' => 'required|string|max:255',
-            'type' => 'required|string',
-            'deskripsi' => 'required|string',
-            'client' => 'nullable|string',
-            'role' => 'nullable|string',
+            'type' => 'required|string|in:Web Development,IoT,Cyber Security,Mobile App',
+            'deskripsi' => 'required|string|max:10000',
+            'client' => 'nullable|string|max:255',
+            'role' => 'nullable|string|max:255',
             'tanggal' => 'required|date',
-            'website' => 'nullable|url',
-            'source' => 'nullable|url',
-
-            // Validasi Array
-            'teknologi' => 'array',
-            'teknologi.*' => 'string',
-            'fitur' => 'array',
-            'fitur.*' => 'string',
-
-            // Validasi Gambar (Multiple)
-            'galery' => 'nullable|array',
-            'galery.*' => 'image|mimes:jpeg,png,jpg,gif|max:5048'
+            'website' => 'nullable|url|max:500',
+            'source' => 'nullable|url|max:500',
+            'teknologi' => 'nullable|array|max:20',
+            'teknologi.*' => 'string|max:50',
+            'fitur' => 'nullable|array|max:20',
+            'fitur.*' => 'string|max:255',
+            'galery' => 'nullable|array|max:10',
+            'galery.*' => 'image|mimes:jpeg,png,jpg,webp|max:5048'
         ]);
 
-        $project = new Project($request->except(['galery']));
+        // Sanitasi input
+        $data = $request->except(['galery', '_token']);
+        $data['judul'] = strip_tags($data['judul']);
+        $data['deskripsi'] = strip_tags($data['deskripsi'], '<p><br><strong><em><ul><ol><li>');
 
-        // Generate Slug otomatis
+        $project = new Project($data);
         $project->slug = Str::slug($request->judul);
 
-        // Handle Multiple Image Upload
         $imagePaths = [];
         if ($request->hasFile('galery')) {
             foreach ($request->file('galery') as $image) {
-                $filename = 'p_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('img/project'), $filename);
+                // Validasi tambahan: cek real MIME type
+                $realMime = $image->getMimeType();
+                if (!in_array($realMime, ['image/jpeg', 'image/png', 'image/webp'])) {
+                    continue;
+                }
+
+                $filename = 'p_' . uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+                Storage::disk('public')->putFileAs('project', $image, $filename);
                 $imagePaths[] = $filename;
             }
         }
         $project->galery = $imagePaths;
-
-        // Array input lain (teknologi & fitur) otomatis dicasting oleh Model karena nama fieldnya sama
 
         $project->save();
 
@@ -78,30 +80,48 @@ class AdminProjectController extends Controller
 
         $request->validate([
             'judul' => 'required|string|max:255',
-            'galery.*' => 'image|mimes:jpeg,png,jpg,gif|max:5048'
+            'type' => 'required|string|in:Web Development,IoT,Cyber Security,Mobile App',
+            'deskripsi' => 'required|string|max:10000',
+            'client' => 'nullable|string|max:255',
+            'role' => 'nullable|string|max:255',
+            'tanggal' => 'required|date',
+            'website' => 'nullable|url|max:500',
+            'source' => 'nullable|url|max:500',
+            'teknologi' => 'nullable|array|max:20',
+            'teknologi.*' => 'string|max:50',
+            'fitur' => 'nullable|array|max:20',
+            'fitur.*' => 'string|max:255',
+            'galery' => 'nullable|array|max:10',
+            'galery.*' => 'image|mimes:jpeg,png,jpg,webp|max:5048'
         ]);
 
-        $project->fill($request->except(['galery']));
+        // Sanitasi input
+        $data = $request->except(['galery', '_token', '_method']);
+        $data['judul'] = strip_tags($data['judul']);
+        $data['deskripsi'] = strip_tags($data['deskripsi'], '<p><br><strong><em><ul><ol><li>');
+
+        $project->fill($data);
         $project->slug = Str::slug($request->judul);
 
-        // Handle Image Update (Append or Replace logic)
-        // Di sini logikanya: Jika ada upload baru, gambar lama DIGANTI total.
-        // Jika ingin menambah, logikanya harus diubah sedikit.
         if ($request->hasFile('galery')) {
-            // 1. Hapus gambar lama
             if ($project->galery) {
                 foreach ($project->galery as $oldImg) {
-                    if (File::exists(public_path($oldImg))) {
-                        File::delete(public_path($oldImg));
+                    if (Storage::disk('public')->exists('project/' . $oldImg)) {
+                        Storage::disk('public')->delete('project/' . $oldImg);
                     }
                 }
             }
 
-            // 2. Upload gambar baru
             $imagePaths = [];
             foreach ($request->file('galery') as $image) {
-                $filename = 'p_' . uniqid() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('img/project'), $filename);
+                // Validasi tambahan: cek real MIME type
+                $realMime = $image->getMimeType();
+                if (!in_array($realMime, ['image/jpeg', 'image/png', 'image/webp'])) {
+                    continue;
+                }
+
+                $filename = 'p_' . uniqid() . '_' . time() . '.' . $image->getClientOriginalExtension();
+                Storage::disk('public')->putFileAs('project', $image, $filename);
                 $imagePaths[] = $filename;
             }
             $project->galery = $imagePaths;
@@ -116,11 +136,10 @@ class AdminProjectController extends Controller
     {
         $project = Project::findOrFail($id);
 
-        // Hapus semua gambar terkait
         if ($project->galery) {
             foreach ($project->galery as $image) {
-                if (File::exists(public_path($image))) {
-                    File::delete(public_path($image));
+                if (Storage::disk('public')->exists('project/' . $image)) {
+                    Storage::disk('public')->delete('project/' . $image);
                 }
             }
         }

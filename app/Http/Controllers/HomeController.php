@@ -50,25 +50,36 @@ class HomeController extends Controller
 
     public function sendContact(Request $request)
     {
-        // 1. Validasi Input
-        $request->validate([
+        // 1. Validasi Input dengan sanitasi
+        $validated = $request->validate([
             'name' => 'required|string|max:100',
-            'email' => 'required|email',
-            'message' => 'required|string',
+            'email' => 'required|email|max:255',
+            'message' => 'required|string|max:2000',
         ]);
 
-        // 2. Konfigurasi Telegram (Sesuaikan dengan Token Anda)
-        $botToken = "7544590388:AAHOyr9i0MSeEEdz8glb_Vy7y7IC-hYNgw4";
-        $chatId = "7060854128";
+        // Sanitasi input untuk mencegah injection
+        $name = strip_tags(trim($validated['name']));
+        $email = filter_var(trim($validated['email']), FILTER_SANITIZE_EMAIL);
+        $message = strip_tags(trim($validated['message']));
+
+        // 2. Ambil credentials dari environment (JANGAN hardcode!)
+        $botToken = config('services.telegram.bot_token');
+        $chatId = config('services.telegram.chat_id');
+
+        // Jika tidak dikonfigurasi, skip pengiriman Telegram
+        if (!$botToken || !$chatId) {
+            \Log::warning('Telegram not configured. Contact message from: ' . $email);
+            return redirect()->back()->with('success', 'Message received successfully!');
+        }
 
         $text = "📩 *New Contact Message*\n\n" .
-            "👤 *Name:* " . $request->name . "\n" .
-            "📧 *Email:* " . $request->email . "\n" .
-            "💬 *Message:* \n" . $request->message;
+            "👤 *Name:* " . $name . "\n" .
+            "📧 *Email:* " . $email . "\n" .
+            "💬 *Message:* \n" . $message;
 
-        // 3. Kirim via Laravel HTTP Client (Lebih aman dari file_get_contents)
+        // 3. Kirim via Laravel HTTP Client
         try {
-            Http::post("https://api.telegram.org/bot{$botToken}/sendMessage", [
+            Http::timeout(10)->post("https://api.telegram.org/bot{$botToken}/sendMessage", [
                 'chat_id' => $chatId,
                 'text' => $text,
                 'parse_mode' => 'Markdown'
@@ -77,6 +88,7 @@ class HomeController extends Controller
             return redirect()->back()->with('success', 'Message sent successfully!');
 
         } catch (\Exception $e) {
+            \Log::error('Telegram send failed: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Failed to send message. Please try again.');
         }
     }

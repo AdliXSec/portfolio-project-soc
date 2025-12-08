@@ -15,6 +15,8 @@ use App\Http\Controllers\AdminCertificateController;
 use App\Http\Controllers\AdminSearchController;
 use App\Http\Controllers\AdminSecurityController;
 use App\Http\Controllers\AdminBlockIpController;
+use App\Http\Controllers\AdminSettingController;
+use App\Http\Controllers\SitemapController;
 use Illuminate\Auth\Access\AuthorizationException;
 
 /*
@@ -24,14 +26,15 @@ use Illuminate\Auth\Access\AuthorizationException;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::post('/contact', [HomeController::class, 'sendContact'])->name('contact.send');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::post('/contact', [HomeController::class, 'sendContact'])->name('contact.send')->middleware('throttle:3,1');
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects.index');
 Route::get('/projects/{project}', [ProjectController::class, 'show'])->name('projects.show');
 Route::get('/certificates/{certificate}', [CertificateController::class, 'show'])->name('certificate.show');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'login'])->name('login.perform');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.perform')->middleware('throttle:5,1');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
@@ -45,11 +48,21 @@ Route::middleware('auth')->group(function () {
     Route::resource('admin/certificate', AdminCertificateController::class, ['names' => 'admin.certificate'])->except(['show']);
     Route::get('/admin/search', [AdminSearchController::class, 'search'])->name('admin.search');
     Route::get('/admin/security', [AdminSecurityController::class, 'index'])->name('admin.security.index');
+    Route::post('/admin/security/toggle', [AdminSecurityController::class, 'toggleSetting'])->name('admin.security.toggle');
+    Route::put('/admin/security/threshold', [AdminSecurityController::class, 'updateThreshold'])->name('admin.security.threshold');
     Route::get('/admin/security/api', [AdminSecurityController::class, 'getLiveStats'])->name('admin.security.api');
     Route::get('/admin/security/firewall', [AdminBlockIpController::class, 'index'])->name('admin.security.firewall');
     Route::post('/admin/security/firewall', [AdminBlockIpController::class, 'store'])->name('admin.security.block');
     Route::delete('/admin/security/firewall/{id}', [AdminBlockIpController::class, 'destroy'])->name('admin.security.unblock');
     Route::get('/admin/security/api/logs', [AdminSecurityController::class, 'getLiveLogs'])->name('admin.security.logs.api');
+
+    // Settings Routes
+    Route::get('/admin/settings', [AdminSettingController::class, 'index'])->name('admin.settings.index');
+    Route::get('/admin/settings/profile', [AdminSettingController::class, 'profile'])->name('admin.settings.profile');
+    Route::put('/admin/settings/profile', [AdminSettingController::class, 'updateProfile'])->name('admin.settings.profile.update');
+    Route::put('/admin/settings/password', [AdminSettingController::class, 'updatePassword'])->name('admin.settings.password.update');
+    Route::delete('/admin/settings/avatar', [AdminSettingController::class, 'deleteAvatar'])->name('admin.settings.avatar.delete');
+
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 // Route::get('/fix-stats', function () {

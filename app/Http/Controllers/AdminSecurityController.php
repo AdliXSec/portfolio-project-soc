@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PageView;
+use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -11,7 +12,42 @@ class AdminSecurityController extends Controller
 {
     public function index()
     {
-        return view('admin.security.index');
+        $settings = Setting::getByGroup('security');
+        return view('admin.security.index', compact('settings'));
+    }
+
+    public function toggleSetting(Request $request)
+    {
+        $request->validate([
+            'key' => 'required|string',
+            'value' => 'required|boolean',
+        ]);
+
+        $allowed = ['soc_enabled', 'soc_auto_block'];
+
+        if (!in_array($request->key, $allowed)) {
+            return response()->json(['success' => false, 'message' => 'Invalid setting key'], 400);
+        }
+
+        Setting::set($request->key, $request->value);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Setting updated successfully',
+            'key' => $request->key,
+            'value' => $request->value
+        ]);
+    }
+
+    public function updateThreshold(Request $request)
+    {
+        $request->validate([
+            'threshold' => 'required|integer|min:1|max:100',
+        ]);
+
+        Setting::set('soc_block_threshold', $request->threshold);
+
+        return redirect()->back()->with('success', 'Block threshold updated successfully!');
     }
 
     // API Endpoint untuk Data Live (AJAX)

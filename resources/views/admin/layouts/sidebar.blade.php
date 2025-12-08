@@ -11,7 +11,7 @@
                         $sidebar = \App\Models\Home::first();
                     @endphp
                     <div class="count-indicator">
-                        <img loading="lazy" class="img-xs rounded-circle " src="{{ asset('img/home/'.$sidebar->foto) }}" alt="">
+                        <img loading="lazy" class="img-xs rounded-circle " src="{{ asset('storage/home/'.$sidebar->foto) }}" alt="">
                         <span class="count bg-success"></span>
                     </div>
                     <div class="profile-name">
@@ -74,9 +74,14 @@
             <a class="nav-link" href="{{ route('admin.security.index') }}">
                 <span class="menu-icon"><i class="mdi mdi-security"></i></span>
                 <span class="menu-title">Security</span>
-                <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="auth"></div>
+        </li>
+
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('admin.settings.index') }}">
+                <span class="menu-icon"><i class="mdi mdi-cog"></i></span>
+                <span class="menu-title">Settings</span>
+            </a>
         </li>
     </ul>
 </nav>

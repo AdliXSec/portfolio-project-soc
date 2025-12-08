@@ -1,6 +1,34 @@
 @extends('layouts.app')
 
-@section('title', 'All Projects | Naufal Adli')
+@section('title', 'All Projects | Naufal Syahruradli')
+@section('meta_description', 'Explore my portfolio of projects in Web Development, IoT, Cyber Security, and Mobile App development. See my work and technical skills.')
+@section('meta_keywords', 'Projects, Portfolio, Web Development, IoT, Cyber Security, Mobile App, Laravel, PHP, Naufal Syahruradli')
+
+@section('structured_data')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Projects Portfolio",
+    "description": "Collection of projects by Naufal Syahruradli",
+    "url": "{{ url()->current() }}",
+    "author": {
+        "@type": "Person",
+        "name": "Naufal Syahruradli"
+    }
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ url('/') }}"},
+        {"@type": "ListItem", "position": 2, "name": "Projects", "item": "{{ url()->current() }}"}
+    ]
+}
+</script>
+@endsection
 
 @section('content')
     <section class="pt-32 pb-12 relative overflow-hidden">
@@ -35,7 +63,7 @@
                 @forelse($projects as $index => $project)
                     @php
                         // 1. Logic Gambar (Ambil index ke-0 dari JSON galery)
-                        $imgSrc = $project->galery[0] ?? 'img/project/p1.png';
+                        $imgSrc = $project->galery[0] ?? 'default.png';
 
                         // 2. Logic Warna Berdasarkan Kategori (Manual Mapping)
                         $colors = [
@@ -54,7 +82,7 @@
                         <div class="relative h-48 overflow-hidden">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent z-10 opacity-60"></div>
 
-                            <img loading="lazy" src="{{ asset('img/project/'.$imgSrc) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="{{ $project->judul }}">
+                            <img loading="lazy" src="{{ asset('storage/project/'.$imgSrc) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="{{ $project->judul }}">
 
                             <div class="absolute top-4 right-4 z-20">
                                 <span class="px-3 py-1 text-xs font-semibold rounded-full bg-{{ $color }}-500/20 text-{{ $color }}-300 border border-{{ $color }}-500/30 backdrop-blur-md">

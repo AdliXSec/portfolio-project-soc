@@ -30,7 +30,7 @@
                     <h4 class="card-title mb-4">Profile Picture</h4>
 
                     <div class="position-relative d-inline-block mb-4">
-                        <img loading="lazy" src="{{ $home->foto ? asset('img/home/'.$home->foto) : 'https://via.placeholder.com/150' }}"
+                        <img loading="lazy" src="{{ $home->foto ? asset('storage/home/'.$home->foto) : 'https://via.placeholder.com/150' }}"
                              alt="profile"
                              id="imgPreview"
                              class="img-lg rounded-circle border border-primary p-1"
@@ -68,7 +68,7 @@
                         </div>
                         @if($home->cv)
                             <div class="mt-2">
-                                <a href="{{ asset($home->cv) }}" target="_blank" class="text-success text-small">
+                                <a href="{{ asset('storage/cv/'.$home->cv) }}" target="_blank" class="text-success text-small">
                                     <i class="mdi mdi-check-circle"></i> CV Available. Click to view.
                                 </a>
                             </div>

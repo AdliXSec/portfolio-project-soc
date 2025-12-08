@@ -17,7 +17,14 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [
+            \App\Http\Middleware\SecurityHeaders::class,
             \App\Http\Middleware\TrackVisits::class,
+        ]);
+
+        // Rate limiting aliases
+        $middleware->alias([
+            'throttle.login' => \Illuminate\Routing\Middleware\ThrottleRequests::class . ':5,1',
+            'throttle.contact' => \Illuminate\Routing\Middleware\ThrottleRequests::class . ':3,1',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
