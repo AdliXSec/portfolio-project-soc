@@ -9,9 +9,14 @@
             <h3 class="text-white">🛡️ Security Operations Center (SOC)</h3>
             <p class="text-muted">Real-time monitoring for threats and anomalies.</p>
         </div>
-        <a href="{{ route('admin.security.firewall') }}" class="btn btn-danger btn-icon-text">
-            <i class="mdi mdi-firewall btn-icon-prepend"></i> Manage Firewall
-        </a>
+        <div class="d-flex gap-2">
+            <a href="{{ route('admin.security.firewall') }}" class="btn btn-danger btn-icon-text">
+                <i class="mdi mdi-firewall btn-icon-prepend"></i> Manage Firewall
+            </a>
+            <a href="{{ route('admin.security.logs') }}" class="btn btn-info btn-icon-text">
+                <i class="mdi mdi-file-document-box btn-icon-prepend"></i> View Logs
+            </a>
+        </div>
     </div>
 </div>
 

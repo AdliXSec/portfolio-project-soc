@@ -10,6 +10,7 @@ use App\Models\Tech;
 use App\Models\Journey;
 use App\Models\Project;
 use App\Models\Certificate;
+use App\Models\Testimonial;
 
 class HomeController extends Controller
 {
@@ -37,6 +38,9 @@ class HomeController extends Controller
         // Jika $about kosong, beri array kosong agar tidak error
         $competencies = $about ? $about->core : [];
 
+        // 8. Ambil Testimonials
+        $testimonials = Testimonial::all();
+
         return view('home', compact(
             'profile',
             'about',
@@ -44,7 +48,8 @@ class HomeController extends Controller
             'experiences',
             'projects',
             'certificates',
-            'competencies'
+            'competencies',
+            'testimonials'
         ));
     }
 

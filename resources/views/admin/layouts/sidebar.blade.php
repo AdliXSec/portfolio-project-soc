@@ -66,6 +66,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('admin.journey.index') }}">My Journey</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('admin.project.index') }}">My Project</a></li>
                     <li class="nav-item"> <a class="nav-link" href="{{ route('admin.certificate.index') }}">My Certificate</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('admin.testimonial.index') }}">Testimonials</a></li>
                 </ul>
             </div>
         </li>
@@ -74,6 +75,13 @@
             <a class="nav-link" href="{{ route('admin.security.index') }}">
                 <span class="menu-icon"><i class="mdi mdi-security"></i></span>
                 <span class="menu-title">Security</span>
+            </a>
+        </li>
+
+        <li class="nav-item menu-items">
+            <a class="nav-link" href="{{ route('admin.users.index') }}">
+                <span class="menu-icon"><i class="mdi mdi-account-multiple"></i></span>
+                <span class="menu-title">User Management</span>
             </a>
         </li>
 

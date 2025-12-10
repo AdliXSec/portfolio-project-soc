@@ -5,36 +5,6 @@
 @section('meta_keywords', $certificate->judul . ', ' . $certificate->penerbit . ', ' . $certificate->type . ', Certificate, Achievement')
 @section('og_image', asset('storage/certificate/' . $certificate->foto))
 
-@section('structured_data')
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "EducationalOccupationalCredential",
-    "name": "{{ $certificate->judul }}",
-    "description": "{{ Str::limit($certificate->deskripsi ?? $certificate->judul, 200) }}",
-    "image": "{{ asset('storage/certificate/' . $certificate->foto) }}",
-    "url": "{{ url()->current() }}",
-    "credentialCategory": "{{ $certificate->type }}",
-    "recognizedBy": {
-        "@type": "Organization",
-        "name": "{{ $certificate->penerbit }}"
-    },
-    "dateCreated": "{{ $certificate->created_at->toISOString() }}"
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ url('/') }}"},
-        {"@type": "ListItem", "position": 2, "name": "Certifications", "item": "{{ url('/#achievements') }}"},
-        {"@type": "ListItem", "position": 3, "name": "{{ $certificate->judul }}", "item": "{{ url()->current() }}"}
-    ]
-}
-</script>
-@endsection
-
 @section('content')
     @php
         // Mapping warna berdasarkan Tipe jika kolom color kosong

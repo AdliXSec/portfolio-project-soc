@@ -5,35 +5,7 @@
 @section('meta_keywords', implode(', ', $project->teknologi ?? []) . ', ' . $project->type . ', Portfolio Project')
 @section('og_image', asset('storage/project/' . ($project->galery[0] ?? 'default.png')))
 
-@section('structured_data')
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    "name": "{{ $project->judul }}",
-    "description": "{{ Str::limit(strip_tags($project->deskripsi), 200) }}",
-    "image": "{{ asset('storage/project/' . ($project->galery[0] ?? 'default.png')) }}",
-    "url": "{{ url()->current() }}",
-    "author": {
-        "@type": "Person",
-        "name": "Naufal Syahruradli"
-    },
-    "genre": "{{ $project->type }}",
-    "keywords": "{{ implode(', ', $project->teknologi ?? []) }}"
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ url('/') }}"},
-        {"@type": "ListItem", "position": 2, "name": "Projects", "item": "{{ route('projects.index') }}"},
-        {"@type": "ListItem", "position": 3, "name": "{{ $project->judul }}", "item": "{{ url()->current() }}"}
-    ]
-}
-</script>
-@endsection
+
 
 @section('content')
     @php

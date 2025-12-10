@@ -17,14 +17,17 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [
+            \App\Http\Middleware\LogSuspiciousActivity::class,
             \App\Http\Middleware\SecurityHeaders::class,
             \App\Http\Middleware\TrackVisits::class,
+            \App\Http\Middleware\EnsureOtpIsValid::class,
         ]);
 
         // Rate limiting aliases
         $middleware->alias([
             'throttle.login' => \Illuminate\Routing\Middleware\ThrottleRequests::class . ':5,1',
             'throttle.contact' => \Illuminate\Routing\Middleware\ThrottleRequests::class . ':3,1',
+            'otp.verified' => \App\Http\Middleware\EnsureOtpIsValid::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

@@ -158,6 +158,7 @@
         <div class="container mx-auto p-6">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">My <span class="text-blue-500">Journey</span></h2>
+                <p class="text-gray-400">Work Experience</p>
             </div>
 
             <div class="relative timeline-line max-w-4xl mx-auto">
@@ -211,6 +212,7 @@
         <div class="container p-4 z-10">
             <div class="items-center text-center mb-12">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Featured <span class="text-blue-500">Projects</span></h2>
+                <p class="text-gray-400">My Projects</p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6 p-4">
@@ -313,6 +315,7 @@
         <div class="container mx-auto p-6 relative z-10">
             <div class="text-center mb-16" data-aos="fade-up">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Certifications & <span class="text-blue-500">Awards</span></h2>
+                <p class="text-gray-400">My Certifications</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -386,89 +389,38 @@
 
             <div class="testimonial-slider" data-aos="fade-up" data-aos-delay="100">
                 <div class="testimonial-track" id="testimonialTrack">
-                    {{-- Testimonial 1 --}}
-                    <div class="testimonial-card">
-                        <div class="glass-card p-8 rounded-2xl h-full">
-                            <div class="flex items-center gap-1 mb-4">
-                                @for($i = 0; $i < 5; $i++)
-                                    <i class="fas fa-star text-yellow-500"></i>
-                                @endfor
-                            </div>
-                            <p class="text-gray-400 mb-6 italic">"Working with Naufal was an absolute pleasure. His expertise in Laravel and attention to security details made our project a success. Highly recommended!"</p>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
-                                    JD
-                                </div>
-                                <div>
-                                    <h4 class="text-white font-semibold">John Doe</h4>
-                                    <p class="text-gray-500 text-sm">CEO, Tech Company</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Testimonial 2 --}}
-                    <div class="testimonial-card">
-                        <div class="glass-card p-8 rounded-2xl h-full">
-                            <div class="flex items-center gap-1 mb-4">
-                                @for($i = 0; $i < 5; $i++)
-                                    <i class="fas fa-star text-yellow-500"></i>
-                                @endfor
-                            </div>
-                            <p class="text-gray-400 mb-6 italic">"Exceptional problem-solving skills and deep understanding of cybersecurity. Naufal delivered beyond expectations and on time."</p>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center text-white font-bold">
-                                    AS
-                                </div>
-                                <div>
-                                    <h4 class="text-white font-semibold">Alice Smith</h4>
-                                    <p class="text-gray-500 text-sm">Project Manager, StartupXYZ</p>
+                    @if($testimonials->isNotEmpty())
+                        @foreach($testimonials as $testimonial)
+                            <div class="testimonial-card">
+                                <div class="glass-card p-8 rounded-2xl h-full">
+                                    <div class="flex items-center gap-1 mb-4">
+                                        @for($i = 0; $i < $testimonial->rate; $i++)
+                                            <i class="fas fa-star text-yellow-500"></i>
+                                        @endfor
+                                        @for($i = $testimonial->rate; $i < 5; $i++)
+                                            <i class="fas fa-star text-gray-600"></i>
+                                        @endfor
+                                    </div>
+                                    <p class="text-gray-400 mb-6 italic">"{{ $testimonial->testimonial }}"</p>
+                                    <div class="flex items-center gap-4">
+                                        @if($testimonial->avatar)
+                                            <img src="{{ asset('storage/' . $testimonial->avatar) }}" alt="{{ $testimonial->name }}" class="w-12 h-12 rounded-full object-cover">
+                                        @else
+                                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold">
+                                                {{ strtoupper(substr($testimonial->name, 0, 2)) }}
+                                            </div>
+                                        @endif
+                                        <div>
+                                            <h4 class="text-white font-semibold">{{ $testimonial->name }}</h4>
+                                            <p class="text-gray-500 text-sm">{{ $testimonial->position }}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    {{-- Testimonial 3 --}}
-                    <div class="testimonial-card">
-                        <div class="glass-card p-8 rounded-2xl h-full">
-                            <div class="flex items-center gap-1 mb-4">
-                                @for($i = 0; $i < 5; $i++)
-                                    <i class="fas fa-star text-yellow-500"></i>
-                                @endfor
-                            </div>
-                            <p class="text-gray-400 mb-6 italic">"The IoT solution Naufal built for us was innovative and secure. His technical knowledge is impressive, and he's great to collaborate with."</p>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white font-bold">
-                                    RB
-                                </div>
-                                <div>
-                                    <h4 class="text-white font-semibold">Robert Brown</h4>
-                                    <p class="text-gray-500 text-sm">CTO, IoT Solutions Inc</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{-- Testimonial 4 --}}
-                    <div class="testimonial-card">
-                        <div class="glass-card p-8 rounded-2xl h-full">
-                            <div class="flex items-center gap-1 mb-4">
-                                @for($i = 0; $i < 5; $i++)
-                                    <i class="fas fa-star text-yellow-500"></i>
-                                @endfor
-                            </div>
-                            <p class="text-gray-400 mb-6 italic">"Naufal's penetration testing uncovered critical vulnerabilities we didn't know existed. Professional, thorough, and highly skilled."</p>
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold">
-                                    EW
-                                </div>
-                                <div>
-                                    <h4 class="text-white font-semibold">Emily Wilson</h4>
-                                    <p class="text-gray-500 text-sm">Security Director, FinTech Corp</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        @endforeach
+                    @else
+                        <div class="text-center text-gray-400 col-span-full">No testimonials yet.</div>
+                    @endif
                 </div>
 
                 {{-- Navigation Dots --}}
@@ -534,7 +486,7 @@
                 autoStart: true,
                 loop: true,
                 deleteSpeed: 50,
-                nextStringDelay: 1000,
+                nextStringDelay: 500,
                 waitUntilVisible: true
             }).go();
 

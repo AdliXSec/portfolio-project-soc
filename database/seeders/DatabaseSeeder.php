@@ -12,6 +12,7 @@ use Database\Seeders\JourneySeeder;
 use Database\Seeders\ProjectSeeder;
 use Database\Seeders\CertificateSeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\TestimonialSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
             ProjectSeeder::class,
             CertificateSeeder::class,
             UserSeeder::class,
+            TestimonialSeeder::class,
         ]);
     }
 }

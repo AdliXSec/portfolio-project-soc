@@ -4,32 +4,6 @@
 @section('meta_description', 'Explore my portfolio of projects in Web Development, IoT, Cyber Security, and Mobile App development. See my work and technical skills.')
 @section('meta_keywords', 'Projects, Portfolio, Web Development, IoT, Cyber Security, Mobile App, Laravel, PHP, Naufal Syahruradli')
 
-@section('structured_data')
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "Projects Portfolio",
-    "description": "Collection of projects by Naufal Syahruradli",
-    "url": "{{ url()->current() }}",
-    "author": {
-        "@type": "Person",
-        "name": "Naufal Syahruradli"
-    }
-}
-</script>
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": "{{ url('/') }}"},
-        {"@type": "ListItem", "position": 2, "name": "Projects", "item": "{{ url()->current() }}"}
-    ]
-}
-</script>
-@endsection
-
 @section('content')
     <section class="pt-32 pb-12 relative overflow-hidden">
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-blue-600/20 rounded-full blur-[120px] -z-10"></div>
