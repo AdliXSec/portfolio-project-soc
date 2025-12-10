@@ -1,30 +1,8 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login | Naufal Adli</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+@extends('layouts.auth')
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+@section('title', 'Login')
 
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #050505; color: #e5e7eb; }
-        .glass-card { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); }
-        .glass-input { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); color: white; transition: all 0.3s ease; }
-        .glass-input:focus { background: rgba(255, 255, 255, 0.08); border-color: #3b82f6; outline: none; box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1); }
-    </style>
-</head>
-<body class="flex items-center justify-center min-h-screen relative overflow-hidden">
-
-    <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-blue-600/20 rounded-full blur-[128px] -z-10"></div>
-    <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-purple-600/20 rounded-full blur-[128px] -z-10"></div>
-
-    <a href="{{ route('home') }}" class="absolute top-6 left-6 text-gray-400 hover:text-white transition flex items-center gap-2 group">
-        <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i> Back to Home
-    </a>
-
+@section('content')
     <div class="w-full max-w-md p-8 mx-4 glass-card rounded-2xl">
         <div class="text-center mb-8">
             <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl mx-auto mb-4 shadow-lg shadow-blue-900/50">N</div>
@@ -74,5 +52,4 @@
             </button>
         </form>
     </div>
-</body>
-</html>
+@endsection
