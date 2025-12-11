@@ -80,6 +80,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/back-login', [AuthController::class, 'backLogin'])->name('back.login');
 });
 // Route::get('/fix-stats', function () {
 //     // 1. Kosongkan tabel statistik

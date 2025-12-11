@@ -42,7 +42,7 @@ class AuthController extends Controller
             ]);
 
             Mail::to($user->email)->send(new OtpMail($otp));
-            
+
             // Simpan email di session untuk ditampilkan di halaman OTP
             $request->session()->put('email_for_otp', $user->email);
 
@@ -53,7 +53,7 @@ class AuthController extends Controller
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     }
-    
+
     // 3. Tampilkan form OTP
     public function showOtpForm()
     {
@@ -73,7 +73,7 @@ class AuthController extends Controller
         $request->validate(['otp' => 'required|numeric|digits:6']);
 
         $user = Auth::user();
-        
+
         if ($user->otp_code === $request->otp && $user->otp_expires_at > Carbon::now()) {
             // OTP valid
             $user->update(['otp_code' => null, 'otp_expires_at' => null]);
@@ -112,5 +112,15 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('login')->with('success', 'You have been logged out.');
+    }
+
+    public function backLogin(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('error', 'OTP verification failed.');
     }
 }

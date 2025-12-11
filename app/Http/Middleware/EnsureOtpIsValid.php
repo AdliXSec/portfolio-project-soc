@@ -18,7 +18,7 @@ class EnsureOtpIsValid
     {
         if (Auth::check() && !session('otp_verified')) {
             // Allow access to the OTP verification pages
-            if ($request->routeIs('otp.verification') || $request->routeIs('otp.verify') || $request->routeIs('otp.resend') || $request->routeIs('logout')) {
+            if ($request->routeIs('otp.verification') || $request->routeIs('otp.verify') || $request->routeIs('otp.resend') || $request->routeIs('logout') || $request->routeIs('back.login')) {
                 return $next($request);
             }
             return redirect()->route('otp.verification')->with('warning', 'Please verify your OTP to continue.');

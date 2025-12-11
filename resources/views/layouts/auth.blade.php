@@ -145,10 +145,6 @@
     <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-blue-600/20 rounded-full blur-[128px] -z-10 pointer-events-none bg-blob"></div>
     <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-purple-600/20 rounded-full blur-[128px] -z-10 pointer-events-none bg-blob"></div>
 
-    <a href="{{ route('home') }}" class="absolute top-6 left-6 text-muted-custom hover:text-blue-500 transition flex items-center gap-2 group z-20 font-medium">
-        <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i> Back to Home
-    </a>
-
     @yield('content')
 
     <script>

@@ -45,6 +45,9 @@
 @endpush
 
 @section('content')
+<a href="{{ route('back.login') }}" class="absolute top-6 left-6 text-muted-custom hover:text-blue-500 transition flex items-center gap-2 group z-20 font-medium">
+    <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i> Back to Home
+</a>
 <div class="w-full max-w-md p-8 mx-4 glass-card rounded-2xl relative z-10">
     <div class="text-center mb-8">
         <div class="w-12 h-12 bg-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-xl mx-auto mb-4 shadow-lg shadow-purple-900/50">
