@@ -105,7 +105,7 @@
             </div>
 
             <div class="mt-12">
-                {{ $projects->links() }}
+                {{ $projects->links('vendor.pagination.tailwind-dark') }}
             </div>
         </div>
     </section>

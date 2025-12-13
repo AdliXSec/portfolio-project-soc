@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\SecurityLog;
+use App\Observers\SecurityLogObserver;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 // 1. Tambahkan Import Class yang dibutuhkan
 use Illuminate\Support\Facades\Event;
@@ -23,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Gunakan view pagination Bootstrap di seluruh aplikasi
+        Paginator::useBootstrap();
+
         // 2. Event Listener: Menangkap setiap kegagalan login
         Event::listen(Failed::class, function ($event) {
 
@@ -36,5 +42,8 @@ class AppServiceProvider extends ServiceProvider
             ]);
 
         });
+
+        // Daftarkan SecurityLogObserver
+        SecurityLog::observe(SecurityLogObserver::class);
     }
 }

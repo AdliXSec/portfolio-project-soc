@@ -74,6 +74,14 @@
         html:not(.dark) .text-gray-300, html:not(.dark) .text-gray-400 { color: #64748b !important; }
         html:not(.dark) .text-gray-500 { color: #94a3b8 !important; }
         html:not(.dark) .border-white\/10, html:not(.dark) .border-white\/5 { border-color: rgba(0, 0, 0, 0.1) !important; }
+
+        /* FIX: Light mode overrides for pagination backgrounds */
+        html:not(.dark) .bg-gray-700, html:not(.dark) .dark\:bg-gray-700 { background-color: #f1f5f9 !important; }
+        html:not(.dark) .bg-gray-800, html:not(.dark) .dark\:bg-gray-800 { background-color: #f8fafc !important; }
+        html:not(.dark) .bg-gray-900, html:not(.dark) .dark\:bg-gray-900 { background-color: #e2e8f0 !important; }
+        html:not(.dark) .dark\:hover\:bg-gray-700:hover { background-color: #e2e8f0 !important; }
+        html:not(.dark) .dark\:hover\:bg-gray-900:hover { background-color: #cbd5e1 !important; }
+
         html:not(.dark) footer { background-color: #f8fafc !important; border-color: rgba(0, 0, 0, 0.1) !important; }
         html:not(.dark) #preloader { background-color: #f8fafc !important; }
         html:not(.dark) .bg-blue-600\/20, html:not(.dark) .bg-purple-600\/20 { opacity: 0.3; }

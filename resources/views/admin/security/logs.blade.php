@@ -39,6 +39,18 @@
                                             <span class="badge badge-danger">SQLi</span>
                                         @elseif($log->type == 'XSS')
                                             <span class="badge badge-warning">XSS</span>
+                                        @elseif($log->type == 'Command Injection')
+                                            <span class="badge badge-danger">Cmd Inject</span>
+                                        @elseif($log->type == 'LFI')
+                                            <span class="badge badge-info">LFI</span>
+                                        @elseif($log->type == 'SSRF')
+                                            <span class="badge badge-primary">SSRF</span>
+                                        @elseif($log->type == 'XXE')
+                                            <span class="badge badge-primary">XXE</span>
+                                        @elseif($log->type == 'XPath')
+                                            <span class="badge badge-dark">XPath</span>
+                                        @elseif($log->type == 'SSTI')
+                                            <span class="badge badge-success">SSTI</span>
                                         @else
                                             <span class="badge badge-secondary">{{ $log->type }}</span>
                                         @endif
