@@ -56,8 +56,8 @@ To get a local copy up and running, follow these simple steps.
 1. **Clone the repository:**
 
     ```sh
-    git clone https://your-repository-url.com/
-    cd porto-project
+    git clone https://github.com/AdliXSec/portfolio-project-soc
+    cd porto-project-soc
     ```
 
 2. **Install PHP dependencies:**
@@ -127,7 +127,7 @@ To get a local copy up and running, follow these simple steps.
     - **Public Site:** [http://127.0.0.1:8000](http://127.0.0.1:8000)
     - **Admin Login:** [http://127.0.0.1:8000/login](http://127.0.0.1:8000/login)
         - **Default Admin Email:** `adliwhtyousee@gmail.com`
-        - **Default Admin Password:** `PortoAdliXSec12!@`
+        - **Default Admin Password:** `12345678`
 
 ## 📄 License
 
