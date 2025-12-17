@@ -24,16 +24,24 @@ class Setting extends Model
 
     public static function set(string $key, $value): bool
     {
-        $setting = self::where('key', $key)->first();
+        $processedValue = is_bool($value) ? ($value ? '1' : '0') : (string) $value;
 
-        if (!$setting) {
-            return false;
+        // Gunakan updateOrCreate: cari berdasarkan 'key', lalu update 'value' atau buat baris baru.
+        $setting = self::updateOrCreate(
+            ['key' => $key],
+            ['value' => $processedValue]
+        );
+
+        // Jika baris baru dibuat, isi nilai default untuk 'group' dan 'type' agar konsisten.
+        if ($setting->wasRecentlyCreated) {
+            $setting->group = 'security'; // Asumsi semua pengaturan baru dari SOC adalah grup 'security'
+            $setting->type = 'boolean';   // Asumsi semua toggle adalah 'boolean'
+            $setting->save();
         }
 
-        $setting->value = is_bool($value) ? ($value ? '1' : '0') : (string) $value;
-        $setting->save();
-
+        // Hapus cache individual dan cache grup agar data baru segera terbaca.
         Cache::forget("setting_{$key}");
+        Cache::forget("soc_settings"); 
 
         return true;
     }

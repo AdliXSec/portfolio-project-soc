@@ -36,8 +36,8 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="d-flex align-items-center justify-content-between p-3 rounded" style="background: rgba(255,255,255,0.05);">
+                    <div class="col-md-3">
+                        <div class="d-flex align-items-center justify-content-between p-3 rounded h-100" style="background: rgba(255,255,255,0.05);">
                             <div>
                                 <h6 class="text-white mb-1">SOC Monitoring</h6>
                                 <small class="text-muted">Enable/Disable real-time monitoring</small>
@@ -49,8 +49,8 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="d-flex align-items-center justify-content-between p-3 rounded" style="background: rgba(255,255,255,0.05);">
+                    <div class="col-md-3">
+                        <div class="d-flex align-items-center justify-content-between p-3 rounded h-100" style="background: rgba(255,255,255,0.05);">
                             <div>
                                 <h6 class="text-white mb-1">Auto Block</h6>
                                 <small class="text-muted">Auto-block suspicious IPs</small>
@@ -61,9 +61,22 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="col-md-3">
+                        <div class="d-flex align-items-center justify-content-between p-3 rounded h-100" style="background: rgba(255,255,255,0.05);">
+                            <div>
+                                <h6 class="text-white mb-1">Email Alert</h6>
+                                <small class="text-muted">Notify admin on threat</small>
+                            </div>
+                            <div class="toggle-switch">
+                                <input type="checkbox" id="soc_email_alert" class="toggle-input" {{ $settings['soc_email_alert'] ?? false ? 'checked' : '' }}>
+                                <label for="soc_email_alert" class="toggle-label"></label>
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="col-md-4">
-                        <form action="{{ route('admin.security.threshold') }}" method="POST" class="d-flex align-items-center justify-content-between p-3 rounded" style="background: rgba(255,255,255,0.05);">
+                    <div class="col-md-3">
+                        <form action="{{ route('admin.security.threshold') }}" method="POST" class="d-flex align-items-center justify-content-between p-3 rounded h-100" style="background: rgba(255,255,255,0.05);">
                             @csrf
                             @method('PUT')
                             <div>
@@ -335,6 +348,10 @@
 
     document.getElementById('soc_auto_block').addEventListener('change', function() {
         handleToggle('soc_auto_block', this);
+    });
+
+    document.getElementById('soc_email_alert').addEventListener('change', function() {
+        handleToggle('soc_email_alert', this);
     });
 </script>
 

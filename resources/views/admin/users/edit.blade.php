@@ -19,6 +19,13 @@
                     <label for="email">Email address</label>
                     <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}" required>
                 </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select class="form-control text-white" id="role" name="role">
+                        <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>User</option>
+                        <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary me-2">Update</button>
                 <a href="{{ route('admin.users.index') }}" class="btn btn-dark">Cancel</a>
             </form>

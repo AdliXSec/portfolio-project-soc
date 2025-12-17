@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             'name' => 'Naufal Syahruradli',
             'email' => 'adliwhtyousee@gmail.com',
             'password' => Hash::make('PortoAdliXSec12!@'),
+            'role' => 'admin',
         ]);
     }
 }

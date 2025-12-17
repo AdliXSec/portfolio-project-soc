@@ -19,6 +19,13 @@
                     <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
+                    <label for="role">Role</label>
+                    <select class="form-control text-white" id="role" name="role">
+                        <option value="user">User</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                 </div>

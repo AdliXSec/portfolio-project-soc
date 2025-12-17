@@ -40,12 +40,13 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login.perform')->middleware('throttle:5,1');
 });
 
-Route::middleware('auth')->group(function () {
-    // OTP Routes
-    Route::get('/otp/verification', [AuthController::class, 'showOtpForm'])->name('otp.verification');
-    Route::post('/otp/verify', [AuthController::class, 'verifyOtp'])->name('otp.verify');
-    Route::post('/otp/resend', [AuthController::class, 'resendOtp'])->name('otp.resend');
+// OTP Routes moved outside of 'auth' middleware group
+Route::get('/otp/verification', [AuthController::class, 'showOtpForm'])->name('otp.verification');
+Route::post('/otp/verify', [AuthController::class, 'verifyOtp'])->name('otp.verify');
+Route::post('/otp/resend', [AuthController::class, 'resendOtp'])->name('otp.resend');
+Route::get('/back-login', [AuthController::class, 'backLogin'])->name('back.login');
 
+Route::middleware('auth')->group(function () {
     Route::middleware('otp.verified')->group(function () {
         Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
         Route::get('/admin/home', [AdminHomeController::class, 'index'])->name('admin.home.index');
@@ -80,7 +81,6 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('/back-login', [AuthController::class, 'backLogin'])->name('back.login');
 });
 // Route::get('/fix-stats', function () {
 //     // 1. Kosongkan tabel statistik

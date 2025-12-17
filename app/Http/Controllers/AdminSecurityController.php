@@ -23,7 +23,7 @@ class AdminSecurityController extends Controller
             'value' => 'required|boolean',
         ]);
 
-        $allowed = ['soc_enabled', 'soc_auto_block'];
+        $allowed = ['soc_enabled', 'soc_auto_block', 'soc_email_alert'];
 
         if (!in_array($request->key, $allowed)) {
             return response()->json(['success' => false, 'message' => 'Invalid setting key'], 400);
