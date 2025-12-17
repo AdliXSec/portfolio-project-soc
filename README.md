@@ -1,59 +1,122 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
+  <img src="public/assets/images/logo.svg" alt="Logo" width="150">
+  <h1>Naufal's Portfolio & Integrated Mini-SIEM</h1>
+  <p>
+    A personal portfolio website built with Laravel, featuring a custom-built, integrated "Mini-SIEM" system for real-time threat detection, logging, and response.
+  </p>
+</div>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+## ✨ About The Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project is a personal portfolio website designed not only to showcase projects and skills but also to serve as a practical demonstration of advanced, custom-built security features. It includes a fully integrated **Mini-SIEM** (Security Information and Event Management) system that actively detects, logs, and responds to common web threats in real-time.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The entire system, from content management to security monitoring, is managed through a comprehensive admin panel secured with Two-Factor Authentication (2FA) via email OTP.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🚀 Key Features
 
-## Learning Laravel
+### Portfolio & Content Management
+- **Dynamic Frontend:** All content on the public-facing pages (Home, About, Projects, etc.) is fully manageable through the admin panel.
+- **Admin Panel:** A complete backend to manage all portfolio content, users, and site settings.
+- **Project & Certificate Showcase:** Sections to display detailed information about personal projects and certifications.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Mini-SIEM & Security
+- **Two-Factor Authentication (2FA):** Secure admin login using a One-Time Password (OTP) sent to the admin's email.
+- **Real-time Threat Detection:** A custom middleware inspects all incoming requests for malicious patterns (SQL Injection, XSS, LFI, Command Injection).
+- **Security Logging:** All detected threats are logged to the database with detailed information, including IP address, user agent, request URL, and the malicious payload.
+- **Automated IP Blocking:** An observer-based system automatically blocks an attacker's IP address after a configurable number of detected offenses.
+- **Live SOC Dashboard:** A real-time Security Operations Center (SOC) dashboard to monitor site traffic, server resources, HTTP response codes, and security events as they happen.
+- **Firewall & Blocklist Management:** A dedicated page to view and manage all automatically or manually blocked IP addresses.
+- **Themed HTML Email Alerts:** Sends beautifully formatted, "cyber-themed" HTML emails to the admin in real-time when a new threat is detected or an IP is blocked.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠️ Tech Stack
 
-## Laravel Sponsors
+- **Backend:** PHP 8.2, Laravel 11
+- **Frontend:** Blade, Tailwind CSS, Vite, Chart.js (for dashboards)
+- **Database:** MySQL
+- **Development Environment:** XAMPP
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## ⚙️ Getting Started
 
-### Premium Partners
+To get a local copy up and running, follow these simple steps.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Prerequisites
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- A local web server environment (e.g., XAMPP, Laragon, Valet) with a MySQL database.
 
-## Contributing
+### Installation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. **Clone the repository:**
+   ```sh
+   git clone https://your-repository-url.com/
+   cd porto-project
+   ```
 
-## Code of Conduct
+2. **Install PHP dependencies:**
+   ```sh
+   composer install
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+3. **Install NPM dependencies and build assets:**
+   ```sh
+   npm install
+   npm run build
+   ```
 
-## Security Vulnerabilities
+4. **Create your environment file:**
+   ```sh
+   copy .env.example .env
+   ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. **Generate an application key:**
+   ```sh
+   php artisan key:generate
+   ```
 
-## License
+6. **Configure your `.env` file:**
+   Update the following variables with your local database and mail server credentials:
+   ```dotenv
+   DB_DATABASE=your_database_name
+   DB_USERNAME=your_database_username
+   DB_PASSWORD=your_database_password
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+   MAIL_MAILER=smtp
+   MAIL_HOST=your_mail_host
+   MAIL_PORT=your_mail_port
+   MAIL_USERNAME=your_mail_username
+   MAIL_PASSWORD=your_mail_password
+   MAIL_ENCRYPTION=tls
+   MAIL_FROM_ADDRESS=hello@example.com
+   ```
+
+7. **Run database migrations and seeders:**
+   This will create all necessary tables and populate the database with initial data, including the admin user.
+   ```sh
+   php artisan migrate --seed
+   ```
+
+## 🏃 Running the Application
+
+1. **Start the local development server:**
+   ```sh
+   php artisan serve
+   ```
+
+2. **Start the queue worker:**
+   This is required to process background jobs, such as sending security alert emails. Keep this running in a separate terminal.
+   ```sh
+   php artisan queue:work
+   ```
+
+3. **Access the application:**
+   - **Public Site:** [http://127.0.0.1:8000](http://127.0.0.1:8000)
+   - **Admin Login:** [http://127.0.0.1:8000/login](http://127.0.0.1:8000/login)
+     - **Default Admin Email:** `adliwhtyousee@gmail.com`
+     - **Default Admin Password:** `PortoAdliXSec12!@`
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
