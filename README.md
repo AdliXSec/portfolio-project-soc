@@ -35,7 +35,7 @@ The entire system, from content management to security monitoring, is managed th
 
 ## 🛠️ Tech Stack
 
--   **Backend:** PHP 8.2, Laravel 11
+-   **Backend:** PHP 8.2, Laravel 12
 -   **Frontend:** Blade, Tailwind CSS, Vite, Chart.js (for dashboards)
 -   **Database:** MySQL
 -   **Development Environment:** XAMPP
